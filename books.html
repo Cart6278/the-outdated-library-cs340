@@ -5,6 +5,20 @@
     <title>Books</title>
 </head>
 <body>
+<!--
 
+records details of each book available at the library
+isbn: varchar, not NULL, unique, PK
+title: varchar, not NULL
+genre: char, not NULL
+isFiction: boolean, not NULL
+Relationships: 
+0:M relationship between Books and Book Items, implemented with isbn as a foreign key inside of Book Items
+A specific book can have 0, 1, or many copies at the library
+1:M relationship between Books and Authors, implemented with isbn as a foreign key inside of a relationship table
+A book can have 1 or many authors
+
+
+    -->
 </body>
 </html>
