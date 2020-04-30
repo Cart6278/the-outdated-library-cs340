@@ -5,10 +5,20 @@
     <title>Authors</title>
 </head>
 <body>
+<!-- NAVIGATION GOES HERE -->
+<ul>
+    <li>Home</li>
+    <li>Reservations</li>
+    <li>Memebers</li>
+    <li>Authors</li>
+    <li>Books</li>
+</ul>
 <h2>
     Enter Author Information
 </h2>
 <form action="" method="get" class="author_form"> <!-- placeholder until backend is coded-->
+    <fieldset>
+    <legend>Author Information Form</legend>
     <div id="author_div">
         <label for="first_name">First Name</label>
             <input type="text" name="first_name" id="first_name" required>
@@ -17,9 +27,10 @@
         <label for="last_name">Last Name</label>
             <input type="text" name="last_name" id="last_name" required>
     </div>
-    <div>
+    <div id="author_div">
         <input type="submit" value="Enter">
     </div>
+    </fieldset>
 </form>
 <!-- 
 

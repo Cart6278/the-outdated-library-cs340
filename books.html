@@ -5,6 +5,45 @@
     <title>Books</title>
 </head>
 <body>
+<!-- NAVIGATION GOES HERE -->
+<ul>
+    <li>Home</li>
+    <li>Reservations</li>
+    <li>Memebers</li>
+    <li>Authors</li>
+    <li>Books</li>
+</ul>
+<h2>
+    Enter Book Information
+</h2>
+<form action="" method="get" class="author_form"> <!-- placeholder until backend is coded-->
+     <fieldset>
+         <legend>Book Information Form</legend>
+        <div id="book_div">
+            <label for="book_title">Title</label>
+            <input type="text" name="book_title" id="book_title" required>
+        </div>
+        <div id="book_div">
+            <label for="book_genre">Genre</label>
+            <input type="text" name="book_genre" id="book_genre" required>
+        </div>
+        <div id="book_div">
+            <label for="isbn">ISBN</label>
+            <input type="number" name="isbn" id="isbn" required>
+        </div>
+        <div id="book_div">
+            <label for="isFiction">Fiction (Y/N)</label>
+            <select id="isFiction" name="isFiction">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+        <div id="book_div">
+            <input type="submit" value="Enter">
+        </div>
+     </fieldset>
+</form>
+
 <!--
 
 records details of each book available at the library
