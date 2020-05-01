@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Add/Update Member</title>
+</head>
+<body>
+    <ul>
+        <li>Home</li>
+        <li><a href="reservations_browse.html">Reservations</a></li>
+        <li><a href="members_browse.html">Members</a></li>
+        <li>Authors</li>
+        <li>Books</li>
+    </ul>
+    <h3>
+        Member Information
+    </h3>
+    <form id="add_members" method="get" action="">
+        <fieldset>
+            First Name: <input type="text" name="memberFirst"><br>
+            Last Name: <input type="text" name="memberLast"><br>
+            Phone: <input type="text" name="phone"><br>
+            E-mail: <input type="text" name="email"><br>
+            Street Address: <input type="text" name="streetAddr"><br>
+            City: <input type="text" name="city"><br>
+            State: 
+                <select name="state"><br>
+                    <option value="TEMP">TEMP</option>
+                </select><br>
+            Postal Code: <input type="text" name="postalCode"><br>
+            <input type="submit" value="Submit">
+        </fieldset>
+    </form>
+    <input type="button" name="member_list" value="Return to Member List" onclick="window.location = 'members_browse.html'">
+</body>
+</html>

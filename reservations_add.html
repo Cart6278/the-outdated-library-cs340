@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Add/Update Reservations</title>
+</head>
+<body>
+    <ul>
+        <li>Home</li>
+        <li><a href="reservations_browse.html">Reservations</a></li>
+        <li><a href="members_browse.html">Members</a></li>
+        <li>Authors</li>
+        <li>Books</li>
+    </ul>
+    <h3>
+        Reservation Information
+    </h3>
+    <form id="add_reservations" method="get" action="">
+        <fieldset>
+            Member ID: <input type="number" name="memberID"><br> <!--remove arrows in css -->
+            Book ID: <input type="number" name="bookID"><br> <!--remove arrows in css -->
+            Date Issued: <input type="date" name="dateIssued"><br>
+            Date Due: <input type="date" name="dateDue"><br>
+            Returned?:
+                <select name="return_status"><br>
+                    <option value="Yes">Y</option>
+                    <option value="No">N</option>
+                </select><br>
+
+            <input type="submit" value="Submit">
+        </fieldset>
+    </form>
+    <input type="button" name="reservation_list" value="Return to Reservation List" onclick="window.location = 'reservations_browse.html'">
+</body>
+</html>
