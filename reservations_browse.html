@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Browse Reservations</title>
 </head>
 <body>
@@ -12,10 +15,9 @@
         <li>Authors</li>
         <li>Books</li>
     </ul>
-    <h3><a href="reservations_add.html">Add Reservation</a></h3>
-
-    <h3>Reservations</h3>
-    <table border="1">
+    <input style="width: 10%; margin-left:45%; margin-bottom: 10px;" type="button" name="go_add_reservation" value="Add Reservation" onclick="window.location = 'reservations_add.html'">   
+    <h3 class="text-center">Reservations</h3>  
+    <table border="1" style="width: 50%; margin-left:25%;">
         <thead>
             <th>Reservation ID</th>
             <th>Book ID</th>
