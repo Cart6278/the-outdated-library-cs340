@@ -2,36 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Authors</title>
+    <title>Browse Authors</title>
 </head>
 <body>
 <!-- NAVIGATION GOES HERE -->
 <ul>
-    <li>Home</li>
-    <li>Reservations</li>
-    <li>Memebers</li>
-    <li>Authors</li>
-    <li>Books</li>
+        <li>Home</li>
+        <li><a href="reservations_browse.html">Reservations</a></li>
+        <li><a href="members_browse.html">Members</a></li>
+        <li>Authors</li>
+        <li>Books</li>
 </ul>
 <h2>
-    Enter Author Information
+    Browse Authors
 </h2>
-<form action="" method="get" class="author_form"> <!-- placeholder until backend is coded-->
-    <fieldset>
-    <legend>Author Information Form</legend>
-    <div id="author_div">
-        <label for="first_name">First Name</label>
-            <input type="text" name="first_name" id="first_name" required>
-    </div>
-    <div id="author_div">
-        <label for="last_name">Last Name</label>
-            <input type="text" name="last_name" id="last_name" required>
-    </div>
-    <div id="author_div">
-        <input type="submit" value="Enter">
-    </div>
-    </fieldset>
-</form>
+<h3><a href="authors_add.html">Add Author</a></h3>
+<table border="1">
+        <thead>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+        </thead>
+        <tbody>
+            <tr>
+                <!-- Use Python -->
+                <td></td>
+                <td></td>
+                <td></td>
+                <td> <input type="button" name="update_author" value="Update" onclick="window.location = 'author_add.html'"> <input type="button" name="delete_author" value="Delete"> </td>
+            </tr>
+        </tbody>
+    </table>
+
 <!-- 
 
 records details of authors of books available at the library
@@ -41,8 +43,6 @@ authorLast: varchar, not NULL
 Relationships: 
 1:M relationship between Authors and Books, implemented with authorID as a foreign key inside of a relationship table
 An author can write 1 or many books
-
-
  -->
 </body>
 </html>

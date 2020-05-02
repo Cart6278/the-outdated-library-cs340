@@ -2,50 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Books</title>
+    <title>Browse Books</title>
 </head>
 <body>
 <!-- NAVIGATION GOES HERE -->
 <ul>
     <li>Home</li>
-    <li>Reservations</li>
-    <li>Memebers</li>
-    <li>Authors</li>
-    <li>Books</li>
+    <li><a href="reservations_browse.html">Reservations</a></li>
+    <li><a href="members_browse.html">Members</a></li>
+    <li><a href="authors.html">Authors</a></li>
+    <li><a href="books.html">Books</a></li>
 </ul>
 <h2>
-    Enter Book Information
+    Browse Books
 </h2>
-<form action="" method="get" class="author_form"> <!-- placeholder until backend is coded-->
-     <fieldset>
-         <legend>Book Information Form</legend>
-        <div id="book_div">
-            <label for="book_title">Title</label>
-            <input type="text" name="book_title" id="book_title" required>
-        </div>
-        <div id="book_div">
-            <label for="book_genre">Genre</label>
-            <input type="text" name="book_genre" id="book_genre" required>
-        </div>
-        <div id="book_div">
-            <label for="isbn">ISBN</label>
-            <input type="number" name="isbn" id="isbn" required>
-        </div>
-        <div id="book_div">
-            <label for="isFiction">Fiction (Y/N)</label>
-            <select id="isFiction" name="isFiction">
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select>
-        </div>
-        <div id="book_div">
-            <input type="submit" value="Enter">
-        </div>
-     </fieldset>
-</form>
+<h3><a href="books_add.html">Add Books</a></h3>
+<table border="1">
+        <thead>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Fiction</th>
+            <th>Genre</th>
+            <th>ISBN</th>
+            <th>Available</th>
+            <th>Total Copies</th>
+        </thead>
+        <tbody>
+            <tr>
+                <!-- Use Python -->
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td> <input type="button" name="update_book" value="Update" onclick="window.location = 'books_add.html'"> <input type="button" name="delete_book" value="Delete"> </td>
+            </tr>
+        </tbody>
+    </table>
 
 <!--
-
 records details of each book available at the library
 isbn: varchar, not NULL, unique, PK
 title: varchar, not NULL
@@ -55,9 +52,6 @@ Relationships:
 0:M relationship between Books and Book Items, implemented with isbn as a foreign key inside of Book Items
 A specific book can have 0, 1, or many copies at the library
 1:M relationship between Books and Authors, implemented with isbn as a foreign key inside of a relationship table
-A book can have 1 or many authors
-
-
-    -->
+A book can have 1 or many authors -->
 </body>
 </html>

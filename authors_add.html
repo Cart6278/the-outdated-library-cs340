@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Authors</title>
+</head>
+<body>
+<!-- NAVIGATION GOES HERE -->
+<ul>
+        <li>Home</li>
+        <li><a href="reservations_browse.html">Reservations</a></li>
+        <li><a href="members_browse.html">Members</a></li>
+        <li><a href="authors.html">Authors</a></li>
+        <li><a href="books.html">Books</a></li>
+</ul>
+<h2>
+    Enter Author Information
+</h2>
+
+<form action="" method="get" class="author_form"> <!-- placeholder until backend is coded-->
+    <fieldset>
+    <legend>Author Information Form</legend>
+    <div id="author_div">
+        <label for="first_name">First Name</label>
+            <input type="text" name="first_name" id="first_name" required>
+    </div>
+    <div id="author_div">
+        <label for="last_name">Last Name</label>
+            <input type="text" name="last_name" id="last_name" required>
+    </div>
+    <div id="author_div">
+        <input type="submit" value="Enter">
+    </div>
+    </fieldset>
+</form>
+<!--
+
+records details of authors of books available at the library
+authorID: int, not NULL, auto_increment, unique, PK
+authorFirst: varchar, not NULL
+authorLast: varchar, not NULL
+Relationships:
+1:M relationship between Authors and Books, implemented with authorID as a foreign key inside of a relationship table
+An author can write 1 or many books
+ -->
+</body>
+</html>
