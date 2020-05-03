@@ -1,42 +1,48 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 <head>
-     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Add/Update Reservations</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dar bg-dark">
-    <a class="navbar-brand" href="#">Library Database</a>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-            <a class="nav-item nav-link" href="reservations_browse.html">Reservations</a>
-            <a class="nav-item nav-link" href="members_browse.html">Members</a>
-            <a class="nav-item nav-link" href="authors.html">Authors</a>
-            <a class="nav-item nav-link" href="books.html">Books</a>
+    <nav class="navbar navbar-expand-lg navbar-dar bg-dark">
+        <a class="navbar-brand" href="#">Library Database</a>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="reservations_browse.html">Reservations</a>
+                <a class="nav-item nav-link" href="members_browse.html">Members</a>
+                <a class="nav-item nav-link" href="authors.html">Authors</a>
+                <a class="nav-item nav-link" href="books.html">Books</a>
+            </div>
         </div>
-    </div>
-</nav>
-    <h3>
-        Reservation Information
-    </h3>
-    <form id="add_reservations" method="get" action="">
-        <fieldset>
-            Member ID: <input type="number" name="memberID"><br> <!--remove arrows in css -->
-            Book ID: <input type="number" name="bookID"><br> <!--remove arrows in css -->
-            Date Issued: <input type="date" name="dateIssued"><br>
-            Date Due: <input type="date" name="dateDue"><br>
-            Returned?:
-                <select name="return_status"><br>
-                    <option value="Yes">Y</option>
-                    <option value="No">N</option>
-                </select><br>
+    </nav>
 
-            <input type="submit" value="Submit">
-        </fieldset>
-    </form>
-    <input type="button" name="reservation_list" value="Return to Reservation List" onclick="window.location = 'reservations_browse.html'">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <div class="border border-dark rounded-0-lg" style="width: 20%; margin-left:40%; margin-top: 20px;">
+        <h3 class="text-center">
+            Reservation Information
+        </h3>   
+        <div class="form-group col-md-4">
+            <form id="add_reservations" method="get" action="">
+                <fieldset>
+                    Member ID: <input type="number" name="memberID"><br>
+                    Book ID: <input type="number" name="bookID"><br> 
+                    Date Issued: <input type="date" name="dateIssued"><br>
+                    Date Due: <input type="date" name="dateDue"><br>
+                    Returned?:
+                        <select name="return_status"><br>
+                            <option value="Yes">Y</option>
+                            <option value="No">N</option>
+                        </select><br>
+                    <input type="submit" value="Submit" style="margin-top: 5px;">
+                </fieldset>
+            </form>
+        </div>    
+    </div>
+    <input style="margin-top: 10px; width: 20%; margin-left: 40%;" type="button" name="reservation_list" value="Return to Reservation List" onclick="window.location = 'reservations_browse.html'">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
