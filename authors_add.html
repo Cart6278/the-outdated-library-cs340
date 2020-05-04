@@ -17,26 +17,27 @@
         </div>
     </div>
 </nav>
-<h2>
-    Enter Author Information
-</h2>
 
-<form action="" method="get" class="author_form"> <!-- placeholder until backend is coded-->
-    <fieldset>
-    <legend>Author Information Form</legend>
-    <div id="author_div">
-        <label for="first_name">First Name</label>
-            <input type="text" name="first_name" id="first_name" required>
+<div class="border border-dark rounded-0-lg row-lg-auto text-center" style="width: 20%; margin-left:40%; margin-top: 20px;">
+    <div class="text_center col-lg-auto">
+        <form action="" method="get" class="book_form"><!-- placeholder until backend is coded-->
+        <fieldset>
+        <legend>Author Information Form</legend>
+        <div class="author_div">
+            <label for="first_name">First Name</label>
+                <input type="text" name="first_name" id="first_name" required>
+        </div>
+        <div class="author_div">
+            <label for="last_name">Last Name</label>
+                <input type="text" name="last_name" id="last_name" required>
+        </div>
+        <div class="author_div">
+            <input type="submit" value="Enter">
+        </div>
+        </fieldset>
+    </form>
     </div>
-    <div id="author_div">
-        <label for="last_name">Last Name</label>
-            <input type="text" name="last_name" id="last_name" required>
-    </div>
-    <div id="author_div">
-        <input type="submit" value="Enter">
-    </div>
-    </fieldset>
-</form>
+</div>
 <!--
 
 records details of authors of books available at the library

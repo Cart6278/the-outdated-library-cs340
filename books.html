@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Browse Books</title>
 </head>
 <body>
@@ -17,12 +18,14 @@
         </div>
     </div>
 </nav>
-<h2>
+
+<h2 class="text-center">
     Browse Books
 </h2>
-<h3><a href="books_add.html">Add Books</a></h3>
-<table border="1">
-        <thead>
+
+<input type="button" name="go_add_book"" value="Add Book" onclick="window.location = 'books_add.html'" style="width: 10%; margin-left:45%; margin-top: 5px;">
+<table border="1" style="width: 50%; margin-left:25%;">
+        <thead class="text-center">
             <th>Title</th>
             <th>Author</th>
             <th>Fiction</th>
@@ -45,6 +48,7 @@
             </tr>
         </tbody>
     </table>
+
 
 <!--
 records details of each book available at the library
