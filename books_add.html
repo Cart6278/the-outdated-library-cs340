@@ -9,7 +9,7 @@
 <body >
 <!-- NAVIGATION GOES HERE -->
 <nav class="navbar navbar-expand-lg navbar-dar bg-dark">
-    <a class="navbar-brand" href="#">Library Database</a>
+    <a class="navbar-brand" href="index.html">Home</a>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-item nav-link" href="reservations_browse.html">Reservations</a>
@@ -55,10 +55,6 @@
                 </select>
             </div>
             <div class="form-group col-md-4">
-                <label for="isbn">ISBN</label>
-                <input type="number" class="form-control" name="isbn" id="isbn" placeholder="978-X-XXXXX-XXX-X " required>
-            </div>
-            <div class="form-group col-md-4">
                 <label for="isFiction">Fiction (Y/N)</label>
                 <select id="isFiction" class="form-control" name="isFiction">
                     <option selected>Choose</option>
@@ -66,16 +62,21 @@
                     <option value="No">No</option>
                 </select>
             </div>
-        </div>
-            <div class="form-group form-row">
-                <div class="col-md-2">
-                <input type="submit" value="Enter">
-                </div>
+            <div class="form-group">
+                <label for="isbn">ISBN</label>
+                <input type="number" class="form-control" name="isbn" id="isbn" placeholder="978-X-XXXXX-XXX-X " required>
             </div>
-    </fieldset>
+        </div>
+            <div>
+                <input type="submit" value="Submit" style="margin-bottom: 5px;">
+            </div>
+        </fieldset>
     </form>
     </div>
 </div>
+
+<input type="button" name="book_list" value="Return to Book List" onclick="window.location = 'books.html'" style="margin-top: 10px; width: 20%; margin-left: 40%;">
+
 
 
 <!--

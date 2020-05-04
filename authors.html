@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -7,7 +8,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dar bg-dark">
-    <a class="navbar-brand" href="#">Library Database</a>
+    <a class="navbar-brand" href="index.html">Home</a>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-item nav-link" href="reservations_browse.html">Reservations</a>
@@ -17,10 +18,10 @@
         </div>
     </div>
 </nav>
-<h2 class="text-center">
-    Browse Authors
-</h2>
-<input type="button" name="go_add_book"" value="Add Author" onclick="window.location = 'books_add.html'" style="width: 10%; margin-left:45%; margin-top: 5px;">
+
+<h3 class="text-center">Browse Authors</h3>
+<input type="button" name="go_add_author" value="Add Author" onclick="window.location = 'authors_add.html'" style="width: 10%; margin-left:45%; margin-bottom: 5px;">
+
 <table border="1" style="width: 50%; margin-left:25%;">
         <thead class="text-center">
             <th>ID</th>
@@ -33,7 +34,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td> <input type="button" name="update_author" value="Update" onclick="window.location = 'author_add.html'"> <input type="button" name="delete_author" value="Delete"> </td>
+                <td> <input type="button" name="update_author" value="Update" onclick="window.location = 'authors_add.html'"> <input type="button" name="delete_author" value="Delete"> </td>
             </tr>
         </tbody>
     </table>
