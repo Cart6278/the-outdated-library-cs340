@@ -27,8 +27,30 @@
             <legend>Book Information Form</legend>
             <label for="book_title">Title</label>
             <input type="text" class="form-control" name="book_title" id="book_title" required>
+            <div class="form-row">
+                <div class="form-group">
+                      <label for="author_name">Author</label>
+                    <select class="form-control" name="author_name" id="author_name" required>
+                        <option selected>Choose One</option>
+                        <option selected>Dynamically Generated from Author Table</option>
+                        <option selected>A temporary option</option>
+                        <option selected>Oh look another option!</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                      <label for="author_name2">Author (Optional)</label>
+                    <select class="form-control" name="author_name2" id="author_name2">
+                        <option selected>Optional</option>
+                        <option selected>Dynamically Generated from Author Table</option>
+                        <option selected>A temporary option</option>
+                        <option selected>Oh look another option!</option>
+                    </select>
+                </div>
+            </div>
         <div class="form-row">
-            <div class="form-group col-md-8">
+            <div class="form-group">
                 <label for="book_genre">Genre</label>
                 <select class="form-control" name="book_genre" id="book_genre">
                     <option selected>Choose One</option>
@@ -54,17 +76,19 @@
                     <option value="Textbook">Textbook</option>
                 </select>
             </div>
-            <div class="form-group col-md-4">
-                <label for="isFiction">Fiction (Y/N)</label>
-                <select id="isFiction" class="form-control" name="isFiction">
-                    <option selected>Choose</option>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                </select>
-            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="isFiction">Fiction (Y/N)</label>
+                    <select id="isFiction" class="form-control" name="isFiction">
+                        <option selected>Choose One</option>
+                        <option value="Yes">Y</option>
+                        <option value="No">N</option>
+                    </select>
+                </div>
             <div class="form-group">
                 <label for="isbn">ISBN</label>
                 <input type="number" class="form-control" name="isbn" id="isbn" placeholder="978-X-XXXXX-XXX-X " required>
+            </div>
             </div>
         </div>
             <div>
@@ -76,7 +100,9 @@
 </div>
 
 <input type="button" name="book_list" value="Return to Book List" onclick="window.location = 'books.html'" style="margin-top: 10px; width: 20%; margin-left: 40%;">
-
+<p class="text-center" style="width: 20%; margin-left:40%; margin-top: 20px;">
+    If a Author is not available please go to the <a href="authors_add.html">Add Author</a> page to add a new Author to the list
+</p>
 
 
 <!--
