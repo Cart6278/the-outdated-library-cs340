@@ -38,6 +38,9 @@ CREATE TABLE `Books`(
 	`isFiction` boolean NOT NULL
 ) ENGINE=InnoDB;
 
+INSERT INTO `Books` (`isbn`, `title`, `genre`, `isFiction`) VALUES
+	('001284982154', 'Sample Book Title', 'Mystery', 1);
+
 --
 -- Table structure for table `Authors`
 --
@@ -68,10 +71,14 @@ CREATE TABLE `Author_Book`(
 
 DROP TABLE IF EXISTS `Book_Items`;
 CREATE TABLE `Book_Items`(
-	`bookID` int(11) NOT NULL PRIMARY KEY,
+	`bookID` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`isbn` varchar(13) NOT NULL,
 	CONSTRAINT `book_items_ibfk_1` FOREIGN KEY(`isbn`) REFERENCES `Books`(`isbn`)
 ) ENGINE=InnoDB;
+
+INSERT INTO `Book_Items` (`bookID`, `isbn`) VALUES
+	(1, '001284982154'),
+	(2, '001284982154');
 
 --
 -- Table structure for table `Reservations`
@@ -88,3 +95,6 @@ CREATE TABLE `Reservations`(
 	CONSTRAINT `reservations_ibfk_1` FOREIGN KEY(`memberID`) REFERENCES `Members`(`memberID`),
 	CONSTRAINT `reservations_ibfk_2` FOREIGN KEY(`bookID`) REFERENCES `Book_Items`(`bookID`)
 ) ENGINE=InnoDB;
+
+INSERT INTO `Reservations` (`reservationID`, `memberID`, `bookID`, `dateIssued`, `dateDue`, `isReturned`) VALUES
+	(1, 3, 1, '2020-05-14', '2020-05-28', 0);
