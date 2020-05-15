@@ -49,7 +49,7 @@ CREATE TABLE `Authors`(
 /*!40101 SET character_set_client = @saved_cs_client */;
 ---- Dumping data for table `Books`
 
-LOCK TABLES `Authors` WRITE;
+LOCK TABLES `author_book` WRITE;
 /*!40000 ALTER TABLE `Books` DISABLE KEYS */;
 /*!40000 ALTER TABLE `Books` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -57,7 +57,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `author_book`
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Books`(
+CREATE TABLE `author_book`(
     `authorID` varchar NOT NULL,
     `ISBN` varchar NOT NULL,
     CONSTRAINT `author_book_ibfk_1` FOREIGN KEY(`authorID`) REFRENCES `Authors` (`authorID`),
@@ -65,7 +65,7 @@ CREATE TABLE `Books`(
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 ---- Dumping data for table `Books`
-LOCK TABLES `Books` WRITE;
+LOCK TABLES `author_book` WRITE;
 /*!40000 ALTER TABLE `Books` DISABLE KEYS */;
 /*!40000 ALTER TABLE `Books` ENABLE KEYS */;
 UNLOCK TABLES
