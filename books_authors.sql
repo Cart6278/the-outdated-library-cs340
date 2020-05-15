@@ -26,7 +26,7 @@ CREATE TABLE `Books`(
     `author` int(11) NOT NULL,
     PRIMARY KEY(`isbn`),
     KEY `isbn`(`isbn`),
-    CONSTRAINT `Books_ibfk_1` FOREIGN KEY(`author`) REFRENCES `Authors` (`authorID`)
+    CONSTRAINT `Books_ibfk_1` FOREIGN KEY(`author`) REFRENCES `author_book` (`authorID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 ---- Dumping data for table `Books`
@@ -58,8 +58,8 @@ DROP TABLE IF EXISTS `author_book`
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `author_book`(
-    `authorID` varchar NOT NULL,
-    `ISBN` varchar NOT NULL,
+    `authorID` int NOT NULL,
+    `isbn` varchar NOT NULL,
     CONSTRAINT `author_book_ibfk_1` FOREIGN KEY(`authorID`) REFRENCES `Authors` (`authorID`),
     CONSTRAINT `author_book_ibfk_2` FOREIGN KEY(`isbn`) REFRENCES `Books`(`isbn`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
