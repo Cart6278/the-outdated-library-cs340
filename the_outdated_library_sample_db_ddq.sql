@@ -39,7 +39,12 @@ CREATE TABLE `Books`(
 ) ENGINE=InnoDB;
 
 INSERT INTO `Books` (`isbn`, `title`, `genre`, `isFiction`) VALUES
-	('001284982154', 'Sample Book Title', 'Mystery', 1);
+    ('001284982154', 'Sample Book Title', 'Mystery', 1),
+    ('9780553448122', 'Artemis', 'Science Fiction', 1),
+    ('9780679879244', 'The Golden Compass', 'Fantasy', 1),
+    ('9780689878558', 'Alanna: The First Adventure', 'Fantasy', 1),
+    ('9780871404237', 'SPQR: A History of Ancient Rome', 'Refrence', 0),
+    ('9871862301382', 'Redwall', 'Fantasy', 1);
 
 --
 -- Table structure for table `Authors`
@@ -53,6 +58,16 @@ CREATE TABLE `Authors`(
 	UNIQUE (`authorID`)
 ) ENGINE=InnoDB;
 
+INSERT INTO `Authors` (`authorID`, `authorFirst`, `authorLast`) VALUES
+    (1, 'JK', 'Rowling'),
+    (3, 'JRR', 'Tolkein'),
+    (4, 'Wesley', 'Chu'),
+    (5, 'Mary', 'Beard'),
+    (6, 'Sharon Kay', 'Penman'),
+    (7, 'Tamora', 'Pierce'),
+    (8, 'Philip', 'Pullman'),
+    (9, 'Marlon', 'James'),
+    (11, 'Brian', 'Jaques');
 --
 -- Table structure for table `Author_Book`
 --
@@ -65,6 +80,12 @@ CREATE TABLE `Author_Book`(
 	CONSTRAINT `author_book_ibfk_2` FOREIGN KEY(`isbn`) REFERENCES `Books`(`isbn`)
 ) ENGINE=InnoDB;
 
+INSERT INTO `Author_Book` (`authorID`, `isbn`) VALUES
+    (6, '9780871404237'),
+    (11, '9871862301382');
+
+
+
 --
 -- Table structure for table `Book_Items`
 --
@@ -76,13 +97,17 @@ CREATE TABLE `Book_Items`(
 	CONSTRAINT `book_items_ibfk_1` FOREIGN KEY(`isbn`) REFERENCES `Books`(`isbn`)
 ) ENGINE=InnoDB;
 
-INSERT INTO `Book_Items` (`bookID`, `isbn`) VALUES
-	(1, '001284982154'),
-	(2, '001284982154');
 
---
--- Table structure for table `Reservations`
---
+INSERT INTO `Book_Items` (`bookID`, `isbn`) VALUES
+    (1, '001284982154'),
+    (2, '001284982154'),
+    (3, '9780553448122'),
+    (4, '9780679879244'),
+    (5, '9780689878558'),
+    (6, '9780871404237'),
+    (7, '9871862301382');
+
+
 
 DROP TABLE IF EXISTS `Reservations`;
 CREATE TABLE `Reservations`(
@@ -97,4 +122,6 @@ CREATE TABLE `Reservations`(
 ) ENGINE=InnoDB;
 
 INSERT INTO `Reservations` (`reservationID`, `memberID`, `bookID`, `dateIssued`, `dateDue`, `isReturned`) VALUES
-	(1, 3, 1, '2020-05-14', '2020-05-28', 0);
+    (1, 3, 1, '2020-05-14', '2020-05-28', 0),
+    (2, 2, 2, '2020-05-14', '2020-05-28', 0);
+
