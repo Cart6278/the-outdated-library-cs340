@@ -22,6 +22,7 @@ def browse_members():
 
     result = execute_query(db_connection, query).fetchall()
     print(result)
+
     return render_template('members_browse.html', rows=result)
 
 @webapp.route('/members_add', methods=['POST','GET'])
