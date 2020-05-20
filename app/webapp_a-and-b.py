@@ -31,7 +31,6 @@ def add_new_people():
         query = 'SELECT id, name from bsg_planets'
         result = execute_query(db_connection, query).fetchall()
         print(result)
-
         return render_template('people_add_new.html', planets = result)
     elif request.method == 'POST':
         print("Add new people!")
