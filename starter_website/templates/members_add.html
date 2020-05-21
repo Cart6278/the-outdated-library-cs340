@@ -25,12 +25,10 @@
             Member Information
         </h3>   
         <div class="form-group col-md-4">
-            <form id="add_members" method="get" action="">
+            <form id="add_members" method="post" action="/members_add.html">
                 <fieldset>
                     First Name<input type="text" name="memberFirst" required><br>
                     Last Name<input type="text" name="memberLast" required><br>
-                    Phone<input type="text" name="phone" required><br>
-                    E-mail<input type="text" name="email" required><br>
                     Street Address<input type="text" name="streetAddr" required><br>
                     City<input type="text" name="city" required><br>
                     State<br>
@@ -88,6 +86,8 @@
                             <option value="WY">WY</option>
                         </select><br>
                     Postal Code: <input type="text" name="postalCode" required><br>
+                    Phone<input type="text" name="phoneNum" required><br>
+                    E-mail<input type="text" name="email"><br>
                     <input type="submit" value="Submit" style="margin-top: 10px;">
                 </fieldset>
             </form>
