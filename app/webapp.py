@@ -95,12 +95,15 @@ def add_new_people():
 
         return render_template('books_add.html', author = result)
     elif request.method == 'POST':
-        print("Add new people!")
-        authorFirst = request.form['authorFirst']
-        authorLast = request.form['authorLast']
+        print("Add new Books!")
+        bookTitle = request.form['bookTitle']
+        bookAuthor = request.form['bookAuthor']
+        bookGenre= request.form['bookGenre']
+        bookFiction= request.form['bookFiction']
+        bookIsbn= request.form['bookIsbn']
 
-        query = 'INSERT INTO Books (author, genre, isFiction, isbn) VALUES (%s,%s)'
-        data = (author, genre, isFiction, isbn)
+        query = 'INSERT INTO Books (bookTitle, bookAuthor, bookGenre, bookFiction, bookIsbn) VALUES (%s,%s, %s,%s, %s)'
+        data = (bookTitle, bookAuthor, bookGenre, bookFiction, bookIsbn)
         execute_query(db_connection, query, data)
         return ('Book added!')
 

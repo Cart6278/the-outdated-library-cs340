@@ -8,11 +8,11 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dar bg-dark">
-    <a class="navbar-brand" href="index.html">Home</a>
+    <a class="navbar-brand" href="../index.html">Home</a>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-item nav-link" href="reservations_browse.html">Reservations</a>
-            <a class="nav-item nav-link" href="members_browse.html">Members</a>
+            <a class="nav-item nav-link" href="../reservations_browse.html">Reservations</a>
+            <a class="nav-item nav-link" href="../members_browse.html">Members</a>
             <a class="nav-item nav-link" href="authors.html">Authors</a>
             <a class="nav-item nav-link" href="books.html">Books</a>
         </div>
@@ -46,7 +46,7 @@
 </div>
 
 <p class="text-center" style="width: 40%; margin-left:30%; margin-top: 20px;">
-    If a Author is not available please go to the <a href="authors_add.html">Add Author</a> page to add a new Author to the list
+    If a Author is not available please go to the <a href="../authors_add.html">Add Author</a> page to add a new Author to the list
 </p>
 
 <table border="1" style="width: 50%; margin-left:25%;">
@@ -56,13 +56,15 @@
             <th>Last Name</th>
         </thead>
         <tbody class="text-center">
+             {% for r in rows %}
             <tr>
                 <!-- Use Python -->
-                <td></td>
-                <td></td>
-                <td></td>
+                <td> {{r.0}} </td>
+                <td> {{r[1]}} </td>
+                <td> {{r[2]}} </td>
                 <td> <input type="button" name="update_author" value="Update" onclick="window.location = 'authors_add.html'"> <input type="button" name="delete_author" value="Delete"> </td>
             </tr>
+                {% endfor %}
         </tbody>
     </table>
 
