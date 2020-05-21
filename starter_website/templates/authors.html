@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Browse Authors</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dar bg-dark">
+        <a class="navbar-brand" href="/">Home</a>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="/reservations_browse.html">Reservations</a>
+                <a class="nav-item nav-link" href="/members_browse.html">Members</a>
+                <a class="nav-item nav-link" href="/authors.html">Authors</a>
+                <a class="nav-item nav-link" href="/books.html">Books</a>
+            </div>
+        </div>
+</nav>
+<div class="container">
+    <h3 class="text-center">Browse Authors</h3>
+    <div class="row" style="margin-left:10%; margin-bottom: 15px;">
+        <div class="col">
+            <input type="button" name="go_add_author" value="Add Author" onclick="window.location = 'authors_add.html'">
+        </div>
+        <div class="col-6">
+            <input class="form-control" type="text" placeholder="Enter Name" aria-label="Search">
+        </div>
+        <div class="dropdown col">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                    Sort/Filter By...
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">First Name - (A-Z)</a>
+                    <a class="dropdown-item" href="#">First Name - (Z-A)</a>
+                    <a class="dropdown-item" href="#">Last Name - (A-Z)</a>
+                    <a class="dropdown-item" href="#">Last Name - (Z-A)</a>
+                    </div>
+        </div>
+        <div class="container col">
+            <button type="submit" class="btn btn-primary mb-2">Search</button>
+        </div>
+    </div>
+
+</div>
+
+<p class="text-center" style="width: 40%; margin-left:30%; margin-top: 20px;">
+    If an Author is not available please go to the <a href="/authors_add.html">Add Author</a> page to add a new Author to the list
+</p>
+
+<table border="1" style="width: 50%; margin-left:25%;">
+        <thead class="text-center">
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+        </thead>
+        <tbody class="text-center">
+	    {% for r in rows %}
+            <tr>
+                <td> {{r.0}} </td>
+                <td> {{r[1]}} </td>
+                <td> {{r[2]}} </td>
+                <td> <input type="button" name="update_author" value="Update" onclick="window.location = 'authors_add.html'"> <input type="button" name="delete_author" value="Delete"> </td>
+            </tr>
+	    {% endfor %}
+        </tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
