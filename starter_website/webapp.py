@@ -115,6 +115,29 @@ def browse_books():
     print(result)
     return render_template('books.html')
 
+#  working on update for books to see how it works
+@webapp.route('/update_book/<id>', methods=['POST', 'GET'])
+def update_book(id):
+    db_connection = connect_to_database()
+    if request.method == 'GET':
+        book_query = 'SELECT isbn, title, genre, isFiction FROM Books WHERE isbn = %s' % (id)
+        book_result = execute_query(db_connection, book_query).fetchone()
+        if book_result == None:
+            return "No such book found!"
+    #  find author for book
+        return render_template(add_books.html, rows=book_result)
+    elif request.method == 'POST':
+        isbn=request.form['isbn']
+        title=request.form['title']
+        genre=request.form['genre']
+        isFiction=request.form['isFiction']
+
+        query = 'UPDATE Books SET title= %s, genre= %s, isFiction= %s WHERE isbn= %s'
+        data = (title, genre, isFiction, isbn)
+        result = execute_query(db_connection, query, data)
+
+        return redirect('/books.html')
+
 # Library landing page
 @webapp.route('/')
 def index():
