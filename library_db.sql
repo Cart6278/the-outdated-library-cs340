@@ -104,9 +104,12 @@ DROP TABLE IF EXISTS `Books`;
 CREATE TABLE `Books` (
   `isbn` varchar(13) NOT NULL,
   `title` varchar(255) NOT NULL,
+  `author` varchar(255) NOT NULL,
   `genre` char(30) NOT NULL,
   `isFiction` tinyint(1) NOT NULL,
   PRIMARY KEY (`isbn`)
+  KEY `book_author_ibfk_1` (`author`)
+  CONSTRAINT `book_author_ibfk_1` FOREIGN KEY (`author`) REFERENCES `Author_Book` (`authorID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
