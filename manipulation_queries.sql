@@ -47,11 +47,48 @@ SELECT reservationID, memberFirst, memberLast, isbn, dateIssued, dateDue, (SELEC
 WHERE isReturned = 0;
 
 -- Query to display author information
-SELECT a.author_id AS authorID, a.first_name as a.authorFirst, a.last_name as a.authorLast FROM Authors a;
+--SELECT a.author_id AS authorID, a.first_name as a.authorFirst, a.last_name as a.authorLast FROM Authors a;
+
+SELECT author_id, authorFirst, authorLast FROM Authors ORDER BY authorFirst ASC;
+
+SELECT author_id, authorFirst, authorLast FROM Authors ORDER BY authorFirst DESC;
+
+SELECT author_id, authorFirst, authorLast FROM Authors ORDER BY authorLast ASC;
+
+SELECT author_id, authorFirst, authorLast FROM Authors ORDER BY authorLast DESC;
+
+SELECT author_id, authorFirst, authorLast FROM Authors ORDER BY author_id ASC;
+
+SELECT author_id, authorFirst, authorLast FROM Authors ORDER BY author_id DESC;
 
 -- Query to display book information
-SELECT a.first_name, a.last_name FROM Books b LEFT JOIN Author_Book ab ON ab.isbn=b.isbn LEFT JOIN Authors a ON
+-- SELECT a.first_name, a.last_name FROM Books b LEFT JOIN Author_Book ab ON ab.isbn=b.isbn LEFT JOIN Authors a ON
 ab.authorID=a.authorID GROUP BY a.authorID, b.isbn ORDER BY a.last_name ASC;
+
+-- to Display authorName and book title in a table stored here for reference
+SELECT GROUP_CONCAT(DISTINCT a.authorFirst, ' ', a.authorLast) AS authorName, b.title FROM Authors AS a
+    INNER JOIN Author_Book AS ab ON ab.authorID=a.authorID
+    INNER JOIN Books AS b ON ab.isbn=b.isbn
+    Group BY b.title
+    ORDER BY a.authorFirst, a.authorLast;
+
+--Books Select
+SELECT isbn, title, genre, (SELECT IF(isFiction, 'Yes', 'No')) as isFiction FROM Books ORDER BY title ASC;
+
+SELECT isbn, title, genre, (SELECT IF(isFiction, 'Yes', 'No')) as isFiction FROM Books ORDER BY title DESC;
+
+SELECT isbn, title, genre, (SELECT IF(isFiction, 'Yes', 'No')) as isFiction FROM Books ORDER BY genre ASC;
+
+SELECT isbn, title, genre, (SELECT IF(isFiction, 'Yes', 'No')) as isFiction FROM Books ORDER BY genre DESC;
+
+SELECT isbn, title, genre, (SELECT IF(isFiction, 'Yes', 'No')) as isFiction FROM Books ORDER BY isbn ASC;
+
+SELECT isbn, title, genre, (SELECT IF(isFiction, 'Yes', 'No')) as isFiction FROM Books ORDER BY isbn DESC;
+
+SELECT isbn, title, genre, (SELECT IF(isFiction, 'Yes', 'No')) as isFiction FROM Books ORDER BY isFiction ASC;
+
+SELECT isbn, title, genre, (SELECT IF(isFiction, 'Yes', 'No')) as isFiction FROM Books ORDER BY isFiction DESC;
+
 
 -- Query to add a new member 
 INSERT INTO Members (memberFirst, memberLast, streetAddr, city, state, postalCode, phoneNum, email) VALUES
