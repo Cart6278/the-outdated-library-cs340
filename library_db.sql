@@ -108,8 +108,6 @@ CREATE TABLE `Books` (
   `genre` char(30) NOT NULL,
   `isFiction` tinyint(1) NOT NULL,
   PRIMARY KEY (`isbn`)
-  KEY `book_author_ibfk_1` (`author`)
-  CONSTRAINT `book_author_ibfk_1` FOREIGN KEY (`author`) REFERENCES `Author_Book` (`authorID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
