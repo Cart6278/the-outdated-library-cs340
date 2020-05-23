@@ -65,11 +65,7 @@ SELECT author_id, authorFirst, authorLast FROM Authors ORDER BY author_id DESC;
 ab.authorID=a.authorID GROUP BY a.authorID, b.isbn ORDER BY a.last_name ASC;
 
 -- to Display authorName and book title in a table stored here for reference
-SELECT GROUP_CONCAT(DISTINCT a.authorFirst, ' ', a.authorLast) AS authorName, b.title FROM Authors AS a
-    INNER JOIN Author_Book AS ab ON ab.authorID=a.authorID
-    INNER JOIN Books AS b ON ab.isbn=b.isbn
-    Group BY b.title
-    ORDER BY a.authorFirst, a.authorLast;
+
 
 --Books Select
 SELECT isbn, title, genre, (SELECT IF(isFiction, 'Yes', 'No')) as isFiction FROM Books ORDER BY title ASC;

@@ -62,7 +62,7 @@ def browse_reservations():
 def browse_authors():
     print("Fetching and rendering authors web page")
     db_connection = connect_to_database()
-    query = 'SELECT * FROM Authors;'
+    query = 'SELECT a.authorID, a.authorFirst, a.authorLast FROM Authors AS a;'
 
     result = execute_query(db_connection, query).fetchall()
     print(result)
@@ -72,7 +72,7 @@ def browse_authors():
 def add_authors():
     db_connection = connect_to_database()
     if request.method == 'GET':
-        query = 'SELECT id, name from Authors'
+        query = 'SELECT a.authorID, a.authorFirst, a.authorLast from Authors;'
         result = execute_query(db_connection, query).fetchall()
         print(result)
 
@@ -82,7 +82,7 @@ def add_authors():
         authorFirst = request.form['authorFirst']
         authorLast = request.form['authorLast']
 
-        query = 'INSERT INTO Authors (authorFirst, authorLast) VALUES (%s,%s)'
+        query = 'INSERT INTO Authors (a.authorFirst, a.authorLast) VALUES (%s,%s)'
         data = (authorFirst, authorLast)
         execute_query(db_connection, query, data)
         return ('Author added!')
@@ -92,7 +92,7 @@ def add_authors():
 def browse_books():
     print("Fetching and rendering books web page")
     db_connection = connect_to_database()
-    query = 'SELECT * FROM Books;'
+    query = 'SELECT b.isbn, b.title, GROUP_CONCAT(DISTINCT a.authorFirst, ' ', a.authorLast) as authorName, b.genre, b.isFiction FROM Books AS b ON ab.isbn=b.isbn INNER JOIN Authors AS a INNER JOIN Author_Book AS ab ON ab.authorID=a.authorID;'
 
     result = execute_query(db_connection, query).fetchall()
     print(result)
