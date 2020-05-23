@@ -51,28 +51,11 @@ def add_members():
 def browse_reservations():
     print("Fetching and rendering reservations web page")
     db_connection = connect_to_database()
-    query = 'SELECT * FROM Reservations;'
+    query = 'SELECT r.reservationID, r.memberID, m.memberFirst, m.memberLast, b.title, r.bookID, r.dateIssued, r.dateDue, (SELECT IF(isReturned, \'Yes\', \'No\')) FROM Reservations AS r LEFT JOIN Members AS m ON r.memberID=m.memberID LEFT JOIN Book_Items AS bi ON r.bookID=bi.bookID LEFT JOIN Books AS b ON bi.isbn=b.isbn;'
 
     result = execute_query(db_connection, query).fetchall()
     print(result)
-    return render_template('reservations_browse.html')
-
-
-
-@webapp.route('/authors_add.html', methods=['POST','GET'])
-def add_authors():
-    db_connection = connect_to_database()
-    if request.method == 'GET':
-        return render_template('authors_add.html')
-
-    elif request.method == 'POST':
-        authorFirst = request.form['authorFirst']
-        authorLast = request.form['authorLast']
-
-        query = 'INSERT INTO Authors (authorFirst, authorLast) VALUES (%s,%s)'
-        data = (authorFirst, authorLast)
-        execute_query(db_connection, query, data)
-        return render_template('authors_add.html')
+    return render_template('reservations_browse.html', rows=result)
 
 @webapp.route('/authors.html')
 #the name of this function is just a cosmetic thing
@@ -85,24 +68,24 @@ def browse_authors():
     print(result)
     return render_template('authors.html', rows=result)
 
-@webapp.route('/books_add.html', methods=['POST','GET'])
-def add_books():
+@webapp.route('/authors_add.html', methods=['POST','GET'])
+def add_authors():
     db_connection = connect_to_database()
     if request.method == 'GET':
-        return render_template('books_add.html')
+        query = 'SELECT id, name from Authors'
+        result = execute_query(db_connection, query).fetchall()
+        print(result)
 
+        return render_template('authors_add.html', author = result)
     elif request.method == 'POST':
-        bookTitle = request.form['bookTitle']
-       # bookAuthor = request.form['bookAuthor']
-        bookGenre= request.form['bookGenre']
-        bookFiction= request.form['bookFiction']
-        bookIsbn= request.form['bookIsbn']
+        print("Add new people!")
+        authorFirst = request.form['authorFirst']
+        authorLast = request.form['authorLast']
 
-        query = 'INSERT INTO Books (bookTitle, bookGenre, bookFiction, bookIsbn) VALUES (%s,%s,%s,%s,%s)'
-        data = (bookTitle, bookGenre, bookFiction, bookIsbn)
+        query = 'INSERT INTO Authors (authorFirst, authorLast) VALUES (%s,%s)'
+        data = (authorFirst, authorLast)
         execute_query(db_connection, query, data)
-
-        return render_template('books_add.html')
+        return ('Author added!')
 
 @webapp.route('/books.html')
 #the name of this function is just a cosmetic thing
@@ -115,28 +98,26 @@ def browse_books():
     print(result)
     return render_template('books.html', rows=result)
 
-#  working on update for books to see how it works
-@webapp.route('/update_book/<id>', methods=['POST', 'GET'])
-def update_book(id):
+@webapp.route('/books_add.html', methods=['POST','GET'])
+def add_books():
     db_connection = connect_to_database()
     if request.method == 'GET':
-        book_query = 'SELECT isbn, title, genre, isFiction FROM Books WHERE isbn = %s' % (id)
-        book_result = execute_query(db_connection, book_query).fetchone()
-        if book_result == None:
-            return "No such book found!"
-    #  find author for book
-        return render_template(add_books.html, rows=book_result)
+        query = 'SELECT id, name from Authors'
+        result = execute_query(db_connection, query).fetchall()
+        print(result)
+
+        return render_template('books_add.html', author = result)
     elif request.method == 'POST':
-        isbn=request.form['isbn']
-        title=request.form['title']
-        genre=request.form['genre']
-        isFiction=request.form['isFiction']
+        bookTitle = request.form['bookTitle']
+#       bookAuthor = request.form['bookAuthor']
+        bookGenre= request.form['bookGenre']
+        bookFiction= request.form['bookFiction']
+        bookIsbn= request.form['bookIsbn']
 
-        query = 'UPDATE Books SET title= %s, genre= %s, isFiction= %s WHERE isbn= %s'
-        data = (title, genre, isFiction, isbn)
-        result = execute_query(db_connection, query, data)
-
-        return redirect('/books.html')
+        query = 'INSERT INTO Books (bookTitle, bookGenre, bookFiction, bookIsbn) VALUES (%s,%s,%s,%s)'
+        data = (bookTitle, bookGenre, bookFiction, bookIsbn)
+        execute_query(db_connection, query, data)
+        return render_template('books_add.html')
 
 # Library landing page
 @webapp.route('/')
