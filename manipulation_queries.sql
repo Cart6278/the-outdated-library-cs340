@@ -1,7 +1,6 @@
 ----
 -- For all queries, ':' denotes a variable that will be filled out by the user or computed by the back-end
 ----
-
 -- Query to display members on Browse Members page, with NULL e-mails replaced by empty string
 SELECT memberID, memberFirst, memberLast, streetAddr, city, state, postalCode, phoneNum, IfNull(email, '') as email FROM Members;
 
