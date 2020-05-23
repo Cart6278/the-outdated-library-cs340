@@ -92,8 +92,7 @@ def add_authors():
 def browse_books():
     print("Fetching and rendering books web page")
     db_connection = connect_to_database()
-    query = 'SELECT b.isbn, b.title, GROUP_CONCAT(DISTINCT a.authorFirst, ' ', a.authorLast) as authorName, b.genre, b.isFiction FROM Books AS b ON ab.isbn=b.isbn INNER JOIN Authors AS a INNER JOIN Author_Book AS ab ON ab.authorID=a.authorID;'
-
+    query = 'SELECT b.isbn, b.title, GROUP_CONCAT(DISTINCT a.authorFirst, ' ', a.authorLast) AS authorName, b.genre, b.isFiction FROM Authors AS a LEFT JOIN Author_Book AS ab ON ab.authorID=a.authorID LEFT JOIN Books AS b ON ab.isbn=b.isbn;'
     result = execute_query(db_connection, query).fetchall()
     print(result)
     return render_template('books.html', rows=result)
