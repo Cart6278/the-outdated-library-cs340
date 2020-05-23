@@ -179,9 +179,9 @@
 
 <table border="1" style="width: 50%; margin-left:25%;">
         <thead class="text-center">
-            <th>ISBN</th>
+	    <th>ISBN</th>
             <th>Title</th>
-            <!--<th>Author</th> -->
+	    <!--<th>Author</th>-->
             <th>Genre</th>
             <th>Fiction</th>
             <th>Available</th>
@@ -195,11 +195,11 @@
                 <td> {{r[2]}} </td>
                 <td> {{r[3]}} </td>
                 <td> {{r[4]}} </td>
-               <!-- <td> {{r[5]}} </td>
-               <td> {{r[6]}} </td> -->
+                <!-- <td> {{r[5]}} </td>
+                <td> {{r[6]}} </td> -->
                 <td> <input type="button" name="update_book" value="Update" onclick="window.location = 'books_add.html'"> <input type="button" name="delete_book" value="Delete"> </td>
             </tr>
-	        {% endfor %}
+	{% endfor %}
         </tbody>
     </table>
 
