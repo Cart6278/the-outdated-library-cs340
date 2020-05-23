@@ -89,7 +89,6 @@ SELECT isbn, title, genre, (SELECT IF(isFiction, 'Yes', 'No')) as isFiction FROM
 
 SELECT isbn, title, genre, (SELECT IF(isFiction, 'Yes', 'No')) as isFiction FROM Books ORDER BY isFiction DESC;
 
-
 -- Query to add a new member 
 INSERT INTO Members (memberFirst, memberLast, streetAddr, city, state, postalCode, phoneNum, email) VALUES
 	(:memberFirstInput, :memberLastInput, :streetAddrInput, :cityInput, :stateInput, :postalInput, :phoneInput, :emailInput);
