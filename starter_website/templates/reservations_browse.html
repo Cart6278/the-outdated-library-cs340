@@ -12,8 +12,8 @@
         <a class="navbar-brand" href="/">Home</a>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" href="/reservations_browse.html">Reservations</a>
-                <a class="nav-item nav-link" href="/members_browse.html">Members</a>
+                <a class="nav-item nav-link" href="/reservations_browse">Reservations</a>
+                <a class="nav-item nav-link" href="/members_browse">Members</a>
                 <a class="nav-item nav-link" href="/authors.html">Authors</a>
                 <a class="nav-item nav-link" href="/books.html">Books</a>
             </div>
@@ -24,7 +24,7 @@
         <h3 class="text-center" style="margin-top: 5px;">Browse Reservations</h3>  
         <div class="row">
             <div class="col-4">
-                <input type="button" name="go_add_reservation" value="Add Reservation" onclick="window.location = 'reservations_add.html'" style="width: 60%; height: 35px; margin-left: 10px; margin-bottom: 10px;"> 
+                <input type="button" name="go_add_reservation" value="Add Reservation" onclick="window.location = '/reservations_add'" style="width: 60%; height: 35px; margin-left: 10px; margin-bottom: 10px;"> 
             </div>
             <div class="col-4">
                 <input class="form-control" type="text" placeholder="Search..." aria-label="Search" style="margin-bottom: 10px;">
@@ -70,8 +70,8 @@
                     <td> {{r[8]}} </td>
                     <td style="width: auto;"></td>
                     <td>
-                        <input type="button" name="update_reservation" value="Update" onclick="window.location = 'reservations_add.html'"> 
-                        <input type="button" name="delete_reservation" value="Delete">
+                        <input type="button" name="update_reservation" value="Update" onclick="window.location = 'reservations_add'"> 
+                        <input type="button" name="delete_reservation" value="Delete" onclick="window.location = 'reservations_browse/{{r.0}}'">
                     </td>
                 </tr>
 		{% endfor %}
