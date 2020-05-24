@@ -11,10 +11,10 @@
         <a class="navbar-brand" href="/">Home</a>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" href="/reservations_browse.html">Reservations</a>
-                <a class="nav-item nav-link" href="/members_browse.html">Members</a>
-                <a class="nav-item nav-link" href="/authors.html">Authors</a>
-                <a class="nav-item nav-link" href="/books.html">Books</a>
+                <a class="nav-item nav-link" href="/reservations_browse">Reservations</a>
+                <a class="nav-item nav-link" href="/members_browse">Members</a>
+                <a class="nav-item nav-link" href="/authors">Authors</a>
+                <a class="nav-item nav-link" href="/books">Books</a>
             </div>
         </div>
 </nav>
@@ -22,7 +22,7 @@
     <h3 class="text-center">Browse Authors</h3>
     <div class="row" style="margin-left:10%; margin-bottom: 15px;">
         <div class="col">
-            <input type="button" name="go_add_author" value="Add Author" onclick="window.location = 'authors_add.html'">
+            <input type="button" name="go_add_author" value="Add Author" onclick="window.location = 'authors_add'">
         </div>
         <div class="col-6">
             <input class="form-control" type="text" placeholder="Enter Name" aria-label="Search">
@@ -46,7 +46,7 @@
 </div>
 
 <p class="text-center" style="width: 40%; margin-left:30%; margin-top: 20px;">
-    If an Author is not available please go to the <a href="/authors_add.html">Add Author</a> page to add a new Author to the list
+    If an Author is not available please go to the <a href="/authors_add">Add Author</a> page to add a new Author to the list
 </p>
 
 <table border="1" style="width: 50%; margin-left:25%;">
@@ -61,7 +61,7 @@
                 <td> {{r.0}} </td>
                 <td> {{r[1]}} </td>
                 <td> {{r[2]}} </td>
-                <td> <input type="button" name="update_author" value="Update" onclick="window.location = 'authors_add.html'"> <input type="button" name="delete_author" value="Delete"> </td>
+                <td> <input type="button" name="update_author" value="Update" onclick="window.location = 'authors_add'"> <input type="button" name="delete_author" value="Delete"> </td>
             </tr>
 	    {% endfor %}
         </tbody>

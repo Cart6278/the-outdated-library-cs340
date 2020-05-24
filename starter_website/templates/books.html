@@ -12,10 +12,10 @@
         <a class="navbar-brand" href="/">Home</a>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" href="/reservations_browse.html">Reservations</a>
-                <a class="nav-item nav-link" href="/members_browse.html">Members</a>
-                <a class="nav-item nav-link" href="/authors.html">Authors</a>
-                <a class="nav-item nav-link" href="/books.html">Books</a>
+                <a class="nav-item nav-link" href="/reservations_browse">Reservations</a>
+                <a class="nav-item nav-link" href="/members_browse">Members</a>
+                <a class="nav-item nav-link" href="/authors">Authors</a>
+                <a class="nav-item nav-link" href="/books">Books</a>
             </div>
         </div>
 </nav>
@@ -23,7 +23,7 @@
     <h3 class="text-center">Browse Books</h3>
     <div class="row">
         <div class="col-4">
-            <input type="button" name="go_add_book" value="Add Book" onclick="window.location = 'books_add.html'" style="width: 30%; margin-left:5%; margin-bottom: 5px;">
+            <input type="button" name="go_add_book" value="Add Book" onclick="window.location = 'books_add'" style="width: 30%; margin-left:5%; margin-bottom: 5px;">
         </div>
         <div class="col-4">
             <input class="form-control" type="text" placeholder="Enter Title..." aria-label="Search" style="margin-bottom: 10px;">
@@ -174,7 +174,7 @@
     <button type="submit" class="btn btn-primary mb-2">Search</button>
 </div>
 <p class="text-center" style="width: 40%; margin-left:30%;">
-    If a Book is not available please go to the <a href="/books_add.html">Add Book</a> page to add a new Book to the list
+    If a Book is not available please go to the <a href="/books_add">Add Book</a> page to add a new Book to the list
 </p>
 
 <table border="1" style="width: 50%; margin-left:25%;">
@@ -197,7 +197,7 @@
                 <td> {{r[4]}} </td>
                 <td> {{r[5]}} </td>
                 <td> {{r[6]}} </td>
-                <td> <input type="button" name="update_book" value="Update" onclick="window.location = 'books_add.html'"> <input type="button" name="delete_book" value="Delete"> </td>
+                <td> <input type="button" name="update_book" value="Update" onclick="window.location = 'books_add'"> <input type="button" name="delete_book" value="Delete"> </td>
             </tr>
 	{% endfor %}
         </tbody>

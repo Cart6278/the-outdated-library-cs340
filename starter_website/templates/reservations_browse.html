@@ -14,8 +14,8 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link" href="/reservations_browse">Reservations</a>
                 <a class="nav-item nav-link" href="/members_browse">Members</a>
-                <a class="nav-item nav-link" href="/authors.html">Authors</a>
-                <a class="nav-item nav-link" href="/books.html">Books</a>
+                <a class="nav-item nav-link" href="/authors">Authors</a>
+                <a class="nav-item nav-link" href="/books">Books</a>
             </div>
         </div>
     </nav>
@@ -29,6 +29,7 @@
             <div class="col-4">
                 <input class="form-control" type="text" placeholder="Search..." aria-label="Search" style="margin-bottom: 10px;">
             </div>  
+<!--
             <div class="dropdown col-4">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 55%;">
                 Sort/Filter By...
@@ -42,6 +43,24 @@
                 <a class="dropdown-item" href="#">Not Returned</a>
                 </div>
             </div>
+
+-->
+
+	<form class="col-4" name="filter_reservations" method="post" action="{{ url_for('browse_reservations') }}"> 
+        	<select name="type">
+			<option value="first_asc">First Name (A-Z)</option>
+			<option value="first_desc">First Name (Z-A)</option>
+			<option value="last_asc">Last Name (A-Z)</option>
+			<option value="last_desc">Last Name (Z-A)</option>
+			<option value="issued_asc">Date Issued - Ascending</option>
+			<option value="issued_desc">Date Issued - Descending</option>
+			<option value="due_asc">Date Due - Ascending</option>
+			<option value="due_desc">Date Due - Descending</option>
+			<option value="returned">Not Returned - Returned</option>
+			<option value="not_returned">Returned - Not Returned</option>
+		</select>
+		<button type="submit" style="width: 20%; margin-left: 10px;">Sort</button>
+	</form>
         </div>  
 
         <table border="1" style="width: 100%;">
