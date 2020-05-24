@@ -5,16 +5,33 @@ from db_connector.db_connector import connect_to_database, execute_query
 webapp = Flask(__name__)
 webapp.config['DEBUG'] = True
 
-@webapp.route('/members_browse')
-#the name of this function is just a cosmetic thing
+@webapp.route('/members_browse', methods=['GET', 'POST'])
 def browse_members():
-        db_connection = connect_to_database()
-        print("Fetching and rendering members web page")
-        query = 'SELECT * FROM Members;'
+	db_connection = connect_to_database()
+	query = ''' SELECT memberID, memberFirst, memberLast, streetAddr, city, state, postalCode, phoneNum, IFNULL(email, '') as email FROM Members'''
 
-        result = execute_query(db_connection, query).fetchall()
-        print(result)
-        return render_template('members_browse.html', rows=result)
+	if request.method == 'POST':
+		option = request.form['type']
+	
+		if option == 'id_asc':
+			query += ' ORDER BY memberID ASC;'
+		elif option == 'id_desc':
+			query += ' ORDER BY memberID DESC;'
+		elif option == 'first_asc':
+			query += ' ORDER BY memberFirst ASC;'
+		elif option == 'first_desc':
+			query += ' ORDER BY memberFirst DESC;'
+		elif option == 'last_asc':
+			query += ' ORDER BY memberLast ASC;'
+		elif option == 'first_asc':
+			query += ' ORDER BY memberLast DESC;'
+
+	elif request.method == 'GET':
+		query += ';'
+
+	result = execute_query(db_connection, query).fetchall()
+	print(result)
+	return render_template('members_browse.html', rows=result)
 
 @webapp.route('/members_add', methods=['POST','GET'])
 def add_members():
@@ -39,18 +56,45 @@ def add_members():
 
         return render_template('members_add.html')
 
-@webapp.route('/reservations_browse')
+@webapp.route('/reservations_browse', methods=['POST', 'GET'])
 def browse_reservations():
-    print("Fetching and rendering reservations web page")
-    db_connection = connect_to_database()
-    query = ''' SELECT r.reservationID, r.memberID, m.memberFirst, m.memberLast, b.title, r.bookID, r.dateIssued, r.dateDue, (SELECT IF(isReturned, \'Yes\', \'No\')) FROM Reservations AS r 
+	db_connection = connect_to_database()
+
+	query = ''' SELECT DISTINCT r.reservationID, r.memberID, m.memberFirst, m.memberLast, b.title, r.bookID, r.dateIssued, r.dateDue, (SELECT IF(isReturned, \'Yes\', \'No\')) FROM Reservations AS r 
 		LEFT JOIN Members AS m ON r.memberID=m.memberID 
 		LEFT JOIN Book_Items AS bi ON r.bookID=bi.bookID 
-		LEFT JOIN Books AS b ON bi.isbn=b.isbn; '''
+		LEFT JOIN Books AS b ON bi.isbn=b.isbn '''
 
-    result = execute_query(db_connection, query).fetchall()
-    print(result)
-    return render_template('reservations_browse.html', rows=result)
+	if request.method == 'POST':
+		option = request.form['type']
+	
+		if option == 'first_asc':
+			query += ' ORDER BY memberFirst ASC;'
+		elif option == 'first_desc':
+			query += ' ORDER BY memberFirst DESC;'
+		elif option == 'last_asc':
+			query += ' ORDER BY memberLast ASC;'
+		elif option == 'last_desc':
+			query += ' ORDER BY memberLast DESC;'
+		elif option == 'issued_asc':
+			query += ' ORDER BY dateIssued ASC;'
+		elif option == 'issued_desc':
+			query += ' ORDER BY dateIssued DESC;'
+		elif option == 'due_asc':
+			query += ' ORDER BY dateDue ASC;'
+		elif option == 'due_desc':
+			query += ' ORDER BY dateDue DESC;'
+		elif option == 'returned':
+			query += ' ORDER BY isReturned ASC;'
+		elif option == 'not_returned':
+			query += ' ORDER BY isReturned DESC;'
+	
+	elif request.method == 'GET':
+		query += ';'
+
+	result = execute_query(db_connection, query).fetchall()
+	print(result)
+	return render_template('reservations_browse.html', rows=result)
 
 @webapp.route('/reservations_add', methods=['POST', 'GET'])
 def add_reservations():
@@ -90,7 +134,7 @@ def delete_reservations(id):
         result = execute_query(db_connection, query, data)
         return browse_reservations()
 
-@webapp.route('/authors.html')
+@webapp.route('/authors')
 #the name of this function is just a cosmetic thing
 def browse_authors():
     print("Fetching and rendering authors web page")
@@ -101,11 +145,11 @@ def browse_authors():
     print(result)
     return render_template('authors.html', rows=result)
 
-@webapp.route('/authors_add.html', methods=['POST','GET'])
+@webapp.route('/authors_add', methods=['POST','GET'])
 def add_authors():
     db_connection = connect_to_database()
     if request.method == 'GET':
-        query = 'SELECT id, name from Authors'
+        query = 'SELECT a.authorID, a.authorFirst, a.authorLast FROM Authors as a;'
         result = execute_query(db_connection, query).fetchall()
         print(result)
 
@@ -115,12 +159,12 @@ def add_authors():
         authorFirst = request.form['authorFirst']
         authorLast = request.form['authorLast']
 
-        query = 'INSERT INTO Authors (authorFirst, authorLast) VALUES (%s,%s)'
+        query = 'INSERT INTO Authors (authorFirst, authorLast) VALUES (%s,%s);'
         data = (authorFirst, authorLast)
         execute_query(db_connection, query, data)
         return ('Author added!')
 
-@webapp.route('/books.html')
+@webapp.route('/books')
 #the name of this function is just a cosmetic thing
 def browse_books():
     print("Fetching and rendering books web page")
@@ -133,7 +177,7 @@ def browse_books():
     print(result)
     return render_template('books.html', rows=result)
 
-@webapp.route('/books_add.html', methods=['POST','GET'])
+@webapp.route('/books_add', methods=['POST','GET'])
 def add_books():
     db_connection = connect_to_database()
     if request.method == 'GET':
