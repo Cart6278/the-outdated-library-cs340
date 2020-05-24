@@ -104,7 +104,6 @@ DROP TABLE IF EXISTS `Books`;
 CREATE TABLE `Books` (
   `isbn` varchar(13) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `author` varchar(255) NOT NULL,
   `genre` char(30) NOT NULL,
   `isFiction` tinyint(1) NOT NULL,
   PRIMARY KEY (`isbn`)
