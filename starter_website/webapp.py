@@ -139,7 +139,20 @@ def delete_reservations(id):
 def browse_authors():
     print("Fetching and rendering authors web page")
     db_connection = connect_to_database()
-    query = 'SELECT a.authorID, a.authorFirst, a.authorLast FROM Authors AS a;'
+    query = '''SELECT a.authorID, a.authorFirst, a.authorLast FROM Authors AS a'''
+# drop down menu for authors sorting
+    if request.method == 'POST':
+        option = request.form['type']
+        if option == 'first_nam_asc':
+            query += ' ORDER BY authorFirst ASC;'
+        elif option == 'first_nam_dec':
+            query += ' ORDER BY authorFirst DESC;'
+        elif option == 'last_nam_asc':
+            query += ' ORDER BY authorLast ASC;'
+        elif option == 'last_nam_dec':
+            query += ' ORDER BY authorLast DESC;'
+    elif request.method == 'GET':
+        query += ';'
 
     result = execute_query(db_connection, query).fetchall()
     print(result)
@@ -169,10 +182,25 @@ def add_authors():
 def browse_books():
     print("Fetching and rendering books web page")
     db_connection = connect_to_database()
+    # THIS CODE WORKS -- query = ''' SELECT b.isbn, b.title, GROUP_CONCAT(DISTINCT a.authorFirst, ' ', a.authorLast) AS authorName, b.genre, b.isFiction FROM Authors AS a
+	#	INNER JOIN Author_Book AS ab ON ab.authorID=a.authorID
+	#	INNER JOIN Books AS b ON ab.isbn=b.isbn
+	#	GROUP BY b.title ORDER BY a.authorFirst, a.authorLast; '''
+
     query = ''' SELECT b.isbn, b.title, GROUP_CONCAT(DISTINCT a.authorFirst, ' ', a.authorLast) AS authorName, b.genre, b.isFiction FROM Authors AS a 
 		INNER JOIN Author_Book AS ab ON ab.authorID=a.authorID 
 		INNER JOIN Books AS b ON ab.isbn=b.isbn 
-		GROUP BY b.title ORDER BY a.authorFirst, a.authorLast; '''
+		GROUP BY b.title'''
+
+    # drop down menu for Book title sorting
+    if request.method == 'POST':
+        option = request.form['type']
+        if option == 'title_asc':
+            query += ' ORDER BY title ASC;'
+        elif option == 'title_dec':
+            query += ' ORDER BY title DESC;'
+    elif request.method == 'GET':
+        query += ' ORDER BY a.authorFirst, a.authorLast;'
     result = execute_query(db_connection, query).fetchall()
     print(result)
     return render_template('books.html', rows=result)

@@ -28,17 +28,13 @@
         <div class="col-4">
             <input class="form-control" type="text" placeholder="Enter Title..." aria-label="Search" style="margin-bottom: 10px;">
         </div>
-        <div class="dropdown col-4">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 55%;">
-                    Sort/Filter By...
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Title - Ascending</a>
-                        <a class="dropdown-item" href="#">Title - Descending</a>
-                        <a class="dropdown-item" href="#">Genre - Ascending</a>
-                        <a class="dropdown-item" href="#">Genre - Descending</a>
-                    </div>
-         </div>
+        <form class="col-4" name="filter_authors" method="post" action="{{ url_for('books') }}">
+            <select name="type">
+                <option value="title_asc">Title - (A-Z)</option>
+                <option value="title_dec">Title - (Z-A)</option>
+            </select>
+             <button type="submit" class="btn btn-primary mb-2">Search</button>
+        </form>
     </div>
 </div>
 <div class="container border">

@@ -27,20 +27,16 @@
         <div class="col-6">
             <input class="form-control" type="text" placeholder="Enter Name" aria-label="Search">
         </div>
-        <div class="dropdown col">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                    Sort/Filter By...
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">First Name - (A-Z)</a>
-                    <a class="dropdown-item" href="#">First Name - (Z-A)</a>
-                    <a class="dropdown-item" href="#">Last Name - (A-Z)</a>
-                    <a class="dropdown-item" href="#">Last Name - (Z-A)</a>
-                    </div>
-        </div>
-        <div class="container col">
-            <button type="submit" class="btn btn-primary mb-2">Search</button>
-        </div>
+        <form class="col-4" name="filter_authors" method="post" action="{{ url_for('authors') }}">
+            <select name="type">
+                <option value="first_nam_asc">First Name - (A-Z)</option>
+                <option value="first_nam_dec">First Name - (Z-A)</option>
+                <option value="last_nam_asc">Last Name - (A-Z)</option>
+                <option value="last_nam_dec">Last Name - (Z-A)</option>
+            </select>
+             <button type="submit" class="btn btn-primary mb-2">Search</button>
+        </form>
+
     </div>
 
 </div>
