@@ -134,12 +134,10 @@ def delete_reservations(id):
         result = execute_query(db_connection, query, data)
         return browse_reservations()
 
-@webapp.route('/authors')
-#the name of this function is just a cosmetic thing
+@webapp.route('/authors', methods=['POST', 'GET'])
 def browse_authors():
-    print("Fetching and rendering authors web page")
-    db_connection = connect_to_database()
-    query = '''SELECT a.authorID, a.authorFirst, a.authorLast FROM Authors AS a'''
+	db_connection = connect_to_database()
+	query = ''' SELECT authorID, authorFirst, authorLast FROM Authors'''
 # drop down menu for authors sorting
     if request.method == 'POST':
         option = request.form['type']
@@ -151,6 +149,7 @@ def browse_authors():
             query += ' ORDER BY authorLast ASC;'
         elif option == 'last_nam_dec':
             query += ' ORDER BY authorLast DESC;'
+
     elif request.method == 'GET':
         query += ';'
 
@@ -177,7 +176,7 @@ def add_authors():
         execute_query(db_connection, query, data)
         return ('Author added!')
 
-@webapp.route('/books')
+@webapp.route('/books', methods=['POST', 'GET'])
 #the name of this function is just a cosmetic thing
 def browse_books():
     print("Fetching and rendering books web page")
