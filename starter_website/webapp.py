@@ -190,17 +190,17 @@ def browse_books():
 
     query = ''' SELECT b.isbn, b.title, GROUP_CONCAT(DISTINCT a.authorFirst, ' ', a.authorLast) AS authorName, b.genre, b.isFiction FROM Authors AS a 
 		INNER JOIN Author_Book AS ab ON ab.authorID=a.authorID 
-		INNER JOIN Books AS b ON ab.isbn=b.isbn GROUP BY b.title'''
+		INNER JOIN Books AS b ON ab.isbn=b.isbn'''
 
     # drop down menu for Book title sorting
     if request.method == 'POST':
         option = request.form['type']
         if option == 'title_asc':
-            query += ' ORDER BY title ASC;'
+            query += ' GROUP BY b.title ORDER BY a.authorFirst, a.authorLast, title ASC;'
         elif option == 'title_dec':
-            query += ' ORDER BY title DESC;'
+            query += ' GROUP BY b.title ORDER BY a.authorFirst, a.authorLast, title DESC;'
     elif request.method == 'GET':
-        query += ' ORDER BY a.authorFirst, a.authorLast;'
+        query += ' GROUP BY b.title ORDER BY a.authorFirst, a.authorLast;'
     result = execute_query(db_connection, query).fetchall()
     print(result)
     return render_template('books_browse.html', rows=result)
