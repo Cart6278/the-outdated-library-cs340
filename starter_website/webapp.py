@@ -134,33 +134,34 @@ def delete_reservations(id):
         result = execute_query(db_connection, query, data)
         return browse_reservations()
 
-@webapp.route('/authors', methods = ['GET', 'POST'])
+@webapp.route('/authors', methods=['POST', 'GET'])
 def browse_authors():
     db_connection = connect_to_database()
-    query = ''' SELECT authorID, authorFirst, authorLast FROM Authors'''
 
-    if request.method == 'POST':
-        option = request.form['type']
+    query = ''' SELECT authorID, authorFirst, authorLast FROM Authors ORDER BY authorID ASC; '''
 
-        if option == 'a_id_asc':
-            query += ' ORDER BY authorID ASC;'
-        elif option == 'a_id_dec':
-            query += ' ORDER BY authorId DESC;'
-        elif option == 'first_nam_asc':
-            query += ' ORDER BY authorFirst ASC;'
-        elif option == 'first_nam_dec':
-            query += ' ORDER BY authorFirst DESC;'
-        elif option == 'last_nam_asc':
-            query += ' ORDER BY authorLast ASC;'
-        elif option == 'last_nam_dec':
-            query += ' ORDER BY authorLast DESC;'
+   # if request.method == 'POST':
+    #    option = request.form['type']
 
-    elif request.method == 'GET':
-        query += ';'
+     #   if option == 'a_id_asc':
+     #       query += ' ORDER BY authorID ASC;'
+     #   elif option == 'a_id_dec':
+     #       query += ' ORDER BY authorId DESC;'
+     #   elif option == 'first_nam_asc':
+     #       query += ' ORDER BY authorFirst ASC;'
+     #   elif option == 'first_nam_dec':
+     #       query += ' ORDER BY authorFirst DESC;'
+     #   elif option == 'last_nam_asc':
+     #       query += ' ORDER BY authorLast ASC;'
+     #   elif option == 'last_nam_dec':
+     #       query += ' ORDER BY authorLast DESC;'
+
+   # elif request.method == 'GET':
+     #   query += ';'
 
     result = execute_query(db_connection, query).fetchall()
     print(result)
-    return render_template('authors.html', rows=result)
+    return render_template('authors_browse.html', rows=result)
 
 @webapp.route('/authors_add', methods=['POST','GET'])
 def add_authors():
@@ -204,7 +205,7 @@ def browse_books():
         query += ' ORDER BY a.authorFirst, a.authorLast;'
     result = execute_query(db_connection, query).fetchall()
     print(result)
-    return render_template('books.html', rows=result)
+    return render_template('books_browse.html', rows=result)
 
 @webapp.route('/books_add', methods=['POST','GET'])
 def add_books():
