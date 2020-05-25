@@ -137,27 +137,26 @@ def delete_reservations(id):
 @webapp.route('/authors', methods=['POST', 'GET'])
 def browse_authors():
     db_connection = connect_to_database()
+    query = ''' SELECT authorID, authorFirst, authorLast FROM Authors  '''
 
-    query = ''' SELECT authorID, authorFirst, authorLast FROM Authors ORDER BY authorID ASC; '''
+    if request.method == 'POST':
+        option = request.form['type']
 
-   # if request.method == 'POST':
-    #    option = request.form['type']
+        if option == 'a_id_asc':
+           query += ' ORDER BY authorID ASC;'
+        elif option == 'a_id_desc':
+           query += ' ORDER BY authorId DESC;'
+        elif option == 'first_nam_asc':
+            query += ' ORDER BY authorFirst ASC;'
+        elif option == 'first_nam_desc':
+           query += ' ORDER BY authorFirst DESC;'
+        elif option == 'last_nam_asc':
+            query += ' ORDER BY authorLast ASC;'
+        elif option == 'last_nam_desc':
+            query += ' ORDER BY authorLast DESC;'
 
-     #   if option == 'a_id_asc':
-     #       query += ' ORDER BY authorID ASC;'
-     #   elif option == 'a_id_dec':
-     #       query += ' ORDER BY authorId DESC;'
-     #   elif option == 'first_nam_asc':
-     #       query += ' ORDER BY authorFirst ASC;'
-     #   elif option == 'first_nam_dec':
-     #       query += ' ORDER BY authorFirst DESC;'
-     #   elif option == 'last_nam_asc':
-     #       query += ' ORDER BY authorLast ASC;'
-     #   elif option == 'last_nam_dec':
-     #       query += ' ORDER BY authorLast DESC;'
-
-   # elif request.method == 'GET':
-     #   query += ';'
+    elif request.method == 'GET':
+        query += ';'
 
     result = execute_query(db_connection, query).fetchall()
     print(result)
@@ -191,8 +190,7 @@ def browse_books():
 
     query = ''' SELECT b.isbn, b.title, GROUP_CONCAT(DISTINCT a.authorFirst, ' ', a.authorLast) AS authorName, b.genre, b.isFiction FROM Authors AS a 
 		INNER JOIN Author_Book AS ab ON ab.authorID=a.authorID 
-		INNER JOIN Books AS b ON ab.isbn=b.isbn 
-		GROUP BY b.title'''
+		INNER JOIN Books AS b ON ab.isbn=b.isbn GROUP BY b.title'''
 
     # drop down menu for Book title sorting
     if request.method == 'POST':
@@ -215,7 +213,7 @@ def add_books():
         result = execute_query(db_connection, query).fetchall()
         print(result)
 
-        return render_template('books_add.html', author = result)
+        return render_template('books_add.html', rows = result)
     elif request.method == 'POST':
         bookTitle = request.form['bookTitle']
 #       bookAuthor = request.form['bookAuthor']
