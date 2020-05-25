@@ -29,6 +29,8 @@
         </div>
         <form class="col-4" name="filter_authors" method="post" action="{{ url_for('authors') }}">
             <select name="type">
+                <option value="a_id_asc">ID Ascending</option>
+                <option value="a_id_dec">ID Descending</option>
                 <option value="first_nam_asc">First Name - (A-Z)</option>
                 <option value="first_nam_dec">First Name - (Z-A)</option>
                 <option value="last_nam_asc">Last Name - (A-Z)</option>
@@ -57,7 +59,10 @@
                 <td> {{r.0}} </td>
                 <td> {{r[1]}} </td>
                 <td> {{r[2]}} </td>
-                <td> <input type="button" name="update_author" value="Update" onclick="window.location = 'authors_add'"> <input type="button" name="delete_author" value="Delete"> </td>
+                <td>
+                    <input type="button" name="update_author" value="Update" onclick="window.location = 'authors_add'">
+                    <input type="button" name="delete_author" value="Delete">
+                </td>
             </tr>
 	    {% endfor %}
         </tbody>

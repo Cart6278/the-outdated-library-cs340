@@ -134,14 +134,19 @@ def delete_reservations(id):
         result = execute_query(db_connection, query, data)
         return browse_reservations()
 
-@webapp.route('/authors', methods=['POST', 'GET'])
+@webapp.route('/authors', methods = ['GET', 'POST'])
 def browse_authors():
-	db_connection = connect_to_database()
-	query = ''' SELECT authorID, authorFirst, authorLast FROM Authors'''
-# drop down menu for authors sorting
+    db_connection = connect_to_database()
+    query = ''' SELECT authorID, authorFirst, authorLast FROM Authors'''
+
     if request.method == 'POST':
         option = request.form['type']
-        if option == 'first_nam_asc':
+
+        if option == 'a_id_asc':
+            query += ' ORDER BY authorID ASC;'
+        elif option == 'a_id_dec':
+            query += ' ORDER BY authorId DESC;'
+        elif option == 'first_nam_asc':
             query += ' ORDER BY authorFirst ASC;'
         elif option == 'first_nam_dec':
             query += ' ORDER BY authorFirst DESC;'
@@ -161,11 +166,8 @@ def browse_authors():
 def add_authors():
     db_connection = connect_to_database()
     if request.method == 'GET':
-        query = 'SELECT a.authorID, a.authorFirst, a.authorLast FROM Authors as a;'
-        result = execute_query(db_connection, query).fetchall()
-        print(result)
+        return render_template('authors_add.html')
 
-        return render_template('authors_add.html', author = result)
     elif request.method == 'POST':
         print("Add new people!")
         authorFirst = request.form['authorFirst']
@@ -176,7 +178,7 @@ def add_authors():
         execute_query(db_connection, query, data)
         return ('Author added!')
 
-@webapp.route('/books', methods=['POST', 'GET'])
+@webapp.route('/books', methods=['GET', 'POST'])
 #the name of this function is just a cosmetic thing
 def browse_books():
     print("Fetching and rendering books web page")
