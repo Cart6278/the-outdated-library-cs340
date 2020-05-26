@@ -167,7 +167,12 @@ def browse_authors():
             query += ' ORDER BY authorLast DESC;'
 
     elif request.method == 'GET':
-        query += ';'
+        option = request.args.get('search_content')
+        if option is None or option == '':
+            query += ';'
+        else:
+            query += ''' WHERE authorFirst LIKE %s ''' % ("\'%%" + option + "%%\'")
+            query += ''' OR authorLast LIKE %s;''' % ("\'%%" + option + "%%\'")
 
     result = execute_query(db_connection, query).fetchall()
     print(result)
@@ -252,7 +257,13 @@ def browse_books():
         elif option == 'poems':
             query += '  WHERE b.genre=\'Poems\' GROUP BY b.title ORDER BY b.title DESC;'
     elif request.method == 'GET':
-        query += ' GROUP BY b.title ORDER BY b.title ASC;'
+        option = request.args.get('search_content')
+        if option is None or option == '':
+            query += ' GROUP BY b.title ORDER BY b.title ASC;'
+        else:
+            query += ''' WHERE title LIKE %s ''' % ("\'%%" + option + "%%\'")
+            #query += ''' OR genre LIKE %s;''' % ("\'%%" + option + "%%\'")
+            #query += ''' OR isbn LIKE %s;''' % ("\'%%" + option + "%%\'")
     result = execute_query(db_connection, query).fetchall()
     print(result)
     return render_template('books_browse.html', rows=result)
@@ -264,16 +275,18 @@ def add_books():
         return render_template('books_add.html')
 
     elif request.method == 'POST':
-        bookTitle = request.form['bookTitle']
-#       bookAuthor = request.form['bookAuthor']
-        bookGenre = request.form['bookGenre']
-        bookFiction = request.form['bookFiction']
-        bookIsbn = request.form['bookIsbn']
+        bookTitle = request.form['book_title']
+        bookGenre = request.form['book_genre']
+        bookFiction = request.form['isFiction']
+        bookIsbn = request.form['isbn']
+        bookAuthorFirst = request.form['author_first']
+        bookAuthorLast = request.form['author_last']
 
-        query = 'INSERT INTO Books (bookTitle, bookGenre, bookFiction, bookIsbn) VALUES (%s,%s,%s,%s)'
-        data = (bookTitle, bookGenre, bookFiction, bookIsbn)
+        query = 'INSERT INTO Books (title, genre, isFiction, isbn) VALUES (%s,%s,%s,%s)' #'; INSERT INTO Author_Book (authorID) VALUES((SELECT authorID FROM Authors AS a WHERE a.authorFirst = %s and a.authorLast=%s))'
+        data = (bookTitle, bookGenre, bookFiction, bookIsbn) #, bookAuthorFirst, bookAuthorLast)
         execute_query(db_connection, query, data)
         return render_template('books_add.html')
+
 
 # Library landing page
 @webapp.route('/')
