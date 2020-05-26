@@ -26,9 +26,10 @@
             <div class="col-4">
                 <input type="button" name="add_author" value="Add Author" onclick="window.location = 'authors_add'" style="width: 60%; height: 35px; margin-left: 10px; margin-bottom: 10px;">
             </div>
-            <div class="col-4">
-                <input class="form-control" type="text" placeholder="Search..." aria-label="Search" style="margin-bottom: 10px;">
-            </div>
+            <form class="col-4" name="search" method="get" action="{{ url_for('browse_authors') }}">
+                <input class="active" type="text" name="search_content" method="post" value="" placeholder="Search..." style="margin-bottom: 10px;">
+			<input type="submit" value = "Search">
+            </form>
 
 <!--
             <div class="dropdown col-4">

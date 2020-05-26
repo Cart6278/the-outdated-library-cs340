@@ -22,33 +22,11 @@
 
 <div class="border border-dark rounded-0-lg row-lg-auto text-center" style="width: 20%; margin-left:40%; margin-top: 20px;">
     <div class="text_center col-lg-auto">
-    <form action="" method="get" class="book_form"> <!-- placeholder until backend is coded-->
+    <form action="" method="post" class="book_form"> <!-- placeholder until backend is coded-->
         <fieldset>
             <legend>Book Information Form</legend>
             <label for="book_title">Title</label>
             <input type="text" class="form-control" name="book_title" id="book_title" required>
-            <div class="form-row">
-                <div class="form-group">
-                      <label for="author_name">Author</label>
-                    <select class="form-control" name="author_name" id="author_name" required>
-                        <option selected>Choose One</option>
-                        <option selected>Dynamically Generated from Author Table</option>
-                        <option selected>A temporary option</option>
-                        <option selected>Oh look another option!</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                      <label for="author_name2">Author (Optional)</label>
-                    <select class="form-control" name="author_name2" id="author_name2">
-                        <option selected>Optional</option>
-                        <option selected>Dynamically Generated from Author Table</option>
-                        <option selected>A temporary option</option>
-                        <option selected>Oh look another option!</option>
-                    </select>
-                </div>
-            </div>
         <div class="form-row">
             <div class="form-group">
                 <label for="book_genre">Genre</label>
@@ -81,15 +59,32 @@
                 <div class="form-group col-md-6">
                     <label for="isFiction">Fiction (Y/N)</label>
                     <select id="isFiction" class="form-control" name="isFiction">
-                        <option selected>Choose One</option>
-                        <option value="Yes">Y</option>
-                        <option value="No">N</option>
+                        <option value="1">Y</option>
+                        <option value="0">N</option>
                     </select>
                 </div>
             <div class="form-group">
                 <label for="isbn">ISBN</label>
                 <input type="number" class="form-control" name="isbn" id="isbn" placeholder="978-X-XXXXX-XXX-X " required>
             </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                      <label for="author_name">Author</label>
+                        <input type="text" class="form-control" name="author_first" id="author_first" >
+                        <input type="text" class="form-control" name="author_last" id="author_last" >
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                      <label for="author_name2">Author (Optional)</label>
+                     <div class="form-group">
+                      <label for="author_name">Author</label>
+                        <input type="text" class="form-control" name="author_first2" id="author_first2">
+                        <input type="text" class="form-control" name="author_last2" id="author_last2">
+                </div>
+            </div>
+
             </div>
         </div>
             <div>
