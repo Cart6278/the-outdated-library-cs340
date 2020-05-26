@@ -255,10 +255,10 @@ def add_books():
 
     elif request.method == 'POST':
         bookTitle = request.form['bookTitle']
-#       bookAuthor = request.form['bookAuthor']
-        bookGenre= request.form['bookGenre']
-        bookFiction= request.form['bookFiction']
-        bookIsbn= request.form['bookIsbn']
+        # bookAuthor = request.form['bookAuthor']
+        bookGenre = request.form['bookGenre']
+        bookFiction = request.form['bookFiction']
+        bookIsbn = request.form['bookIsbn']
 
         query = 'INSERT INTO Books (bookTitle, bookGenre, bookFiction, bookIsbn) VALUES (%s,%s,%s,%s)'
         data = (bookTitle, bookGenre, bookFiction, bookIsbn)
