@@ -134,7 +134,7 @@ def delete_reservations(id):
         result = execute_query(db_connection, query, data)
         return browse_reservations()
 
-@webapp.route('/authors', methods=['POST', 'GET'])
+@webapp.route('/authors_browse', methods=['POST', 'GET'])
 def browse_authors():
     db_connection = connect_to_database()
     query = ''' SELECT authorID, authorFirst, authorLast FROM Authors  '''
@@ -178,7 +178,7 @@ def add_authors():
         execute_query(db_connection, query, data)
         return ('Author added!')
 
-@webapp.route('/books', methods=['GET', 'POST'])
+@webapp.route('/books_browse', methods=['GET', 'POST'])
 #the name of this function is just a cosmetic thing
 def browse_books():
     print("Fetching and rendering books web page")
@@ -251,11 +251,8 @@ def browse_books():
 def add_books():
     db_connection = connect_to_database()
     if request.method == 'GET':
-        query = 'SELECT id, name from Authors'
-        result = execute_query(db_connection, query).fetchall()
-        print(result)
+        return render_template('books_add.html')
 
-        return render_template('books_add.html', rows = result)
     elif request.method == 'POST':
         bookTitle = request.form['bookTitle']
 #       bookAuthor = request.form['bookAuthor']
