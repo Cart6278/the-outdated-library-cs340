@@ -196,11 +196,53 @@ def browse_books():
     if request.method == 'POST':
         option = request.form['type']
         if option == 'title_asc':
-            query += ' GROUP BY b.title ORDER BY a.authorFirst, a.authorLast, title ASC;'
+            query += ' GROUP BY b.title ORDER BY b.title ASC;'
         elif option == 'title_dec':
-            query += ' GROUP BY b.title ORDER BY a.authorFirst, a.authorLast, title DESC;'
+            query += ' GROUP BY b.title ORDER BY b.title DESC;'
+        elif option == 'biography':
+            query += ' WHERE b.genre=\'Biography\' GROUP BY b.title ORDER BY b.title DESC;'
+        elif option == 'classics':
+            query += ' WHERE b.genre=\'Classics\' GROUP BY b.title ORDER BY b.title DESC;'
+        elif option == 'comics':
+            query += ' WHERE b.genre=\'Comics/Graphic Novel\' GROUP BY b.title ORDER BY b.title DESC;'
+        elif option == 'contemporary':
+            query += ' WHERE b.genre=\'Contemporary\' GROUP BY b.title ORDER BY b.title DESC;'
+        elif option == 'essay':
+            query += ' WHERE b.genre=\'Essay\' GROUP BY b.title ORDER BY b.title DESC;'
+        elif option == 'fffTale':
+            query += ' WHERE b.genre=\'Fable/FolkTale/Fairy Tale\' GROUP BY b.title ORDER BY b.title DESC;'
+        elif option == 'fantasy':
+            query += ' WHERE b.genre=\'Fantasy\' GROUP BY b.title ORDER BY b.title DESC;'
+        elif option == 'histFic':
+            query += ' WHERE b.genre=\'Historical Fiction\' GROUP BY b.title ORDER BY b.title DESC;'
+        elif option == 'horror':
+            query += ' WHERE b.genre=\'Horror\' GROUP BY b.title ORDER BY b.title DESC;'
+        elif option == 'humor':
+            query += ' WHERE b.genre=\'Humor\' GROUP BY b.title ORDER BY b.title DESC;'
+        elif option == 'journalism':
+            query += ' WHERE b.genre=\'Journalism\' GROUP BY b.title ORDER BY b.title DESC;'
+        elif option == 'legendMyth':
+            query += ' WHERE b.genre=\'Legend/Mythology\' GROUP BY b.title ORDER BY b.title DESC;'
+        elif option == 'mystery':
+            query += ' WHERE b.genre=\'Mystery\' GROUP BY b.title ORDER BY b.title DESC;'
+        elif option == 'reference':
+            query += ' WHERE b.genre=\'Reference Book\' GROUP BY b.title ORDER BY b.title DESC;'
+        elif option == 'romance':
+            query += ' WHERE b.genre=\'Romance\' GROUP BY b.title ORDER BY b.title DESC;'
+        elif option == 'sciFi':
+            query += ' WHERE b.genre=\'Science Fiction\' GROUP BY b.title ORDER BY b.title DESC;'
+        elif option == 'selfHelp':
+            query += ' WHERE b.genre=\'Self-Help\' GROUP BY b.title ORDER BY b.title DESC;'
+        elif option == 'short-story':
+            query += ' WHERE b.genre=\'Short Story\' GROUP BY b.title ORDER BY b.title DESC;'
+        elif option == 'suspenseThriller':
+            query += ' WHERE b.genre=\'Suspense/Thriller\' GROUP BY b.title ORDER BY b.title DESC;'
+        elif option == 'textbook':
+            query += ' WHERE b.genre=\'Textbook\' GROUP BY b.title ORDER BY b.title DESC;'
+        elif option == 'poems':
+            query += '  WHERE b.genre=\'Poems\' GROUP BY b.title ORDER BY b.title DESC;'
     elif request.method == 'GET':
-        query += ' GROUP BY b.title ORDER BY a.authorFirst, a.authorLast;'
+        query += ' GROUP BY b.title ORDER BY b.title ASC;'
     result = execute_query(db_connection, query).fetchall()
     print(result)
     return render_template('books_browse.html', rows=result)

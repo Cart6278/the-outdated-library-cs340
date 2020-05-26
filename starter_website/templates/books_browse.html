@@ -51,139 +51,150 @@
 	<form class="col-4" name="filter_books" method="post" action="{{ url_for('browse_books') }}">
         	<select name="type">
 			<option value="title_asc">Title - Ascending</option>
-			<option value="title_desc">Title - Descending</option>
+			<option value="title_dec">Title - Descending</option>
 		</select>
 		<button type="submit" style="width: 20%; margin-left: 10px;">Filter</button>
 	</form>
-<div class="container border">
-    <div class="container text-center" style="padding-top: 10px">
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" value="" id="Biography">
-          <label class="form-check-label" for="Biography">
-            Biography
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" value="" id="Classics">
-          <label class="form-check-label" for="Classics">
-            Classics
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" value="" id="Comics-Graphic Novel">
-          <label class="form-check-label" for="Comics-Graphic Novel">
-            Comics/Graphic Novel
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" value="" id="Contemporary">
-          <label class="form-check-label" for="Contemporary">
-            Contemporary
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" value="" id="Essay">
-          <label class="form-check-label" for="Essay">
-            Essay
-          </label>
-        </div>
 
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" value="" id="Fable-Folk-Fairy-Tale">
-          <label class="form-check-label" for="Fable-Folk-Fairy-Tale">
-            Fable/Folk/Fairy Tale
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" value="" id="Fantasy">
-          <label class="form-check-label" for="Fantasy">
-            Fantasy
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" value="" id="Historical-Fiction">
-          <label class="form-check-label" for="Historical-Fiction">
-            Historical Fiction
-          </label>
-        </div>
-    </div>
-    <div class="container text-center" style="padding-top: 10px">
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" value="" id="Horror">
-          <label class="form-check-label" for="Horror">
-            Horror
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" value="" id="Humor">
-          <label class="form-check-label" for="Humor">
-            Humor
-          </label>
-        </div>
+<form name="filter_genre" method="post" action="{{ url_for('browse_books') }}">
+    <fieldset>
+       <div class="container border">
+            <div class="container text-center" style="padding-top: 10px">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="{{ biography }}" id="Biography">
+                  <label class="form-check-label" for="Biography">
+                    Biography
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="{{ classics }}" id="Classics">
+                  <label class="form-check-label" for="Classics">
+                    Classics
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="{{ comics }}" id="Comics-GraphicNovel">
+                  <label class="form-check-label" for="Comics-GraphicNovel">
+                    Comics/Graphic Novel
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="{{ contemporary }}" id="Contemporary">
+                  <label class="form-check-label" for="Contemporary">
+                    Contemporary
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="{{ essay }}" id="Essay">
+                  <label class="form-check-label" for="Essay">
+                    Essay
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="{{ fffTale }}" id="Fable-Folk-Fairy-Tale">
+                  <label class="form-check-label" for="Fable-Folk-Fairy-Tale">
+                    Fable/Folk/Fairy Tale
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="{{ fantasy }}" id="Fantasy">
+                  <label class="form-check-label" for="Fantasy">
+                    Fantasy
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="{{ histFic }}" id="Historical-Fiction">
+                  <label class="form-check-label" for="Historical-Fiction">
+                    Historical Fiction
+                  </label>
+                </div>
+            </div>
+            <div class="container text-center" style="padding-top: 10px">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="{{ horror }}" id="Horror">
+                  <label class="form-check-label" for="Horror">
+                    Horror
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="{{ humor }}" id="Humor">
+                  <label class="form-check-label" for="Humor">
+                    Humor
+                  </label>
+                </div>
 
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" value="" id="Journalism">
-          <label class="form-check-label" for="Journalism">
-            Journalism
-          </label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="{{ journalism }}" id="Journalism">
+                  <label class="form-check-label" for="Journalism">
+                    Journalism
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="{{ legendMyth }}" id="Legends-Mythology">
+                  <label class="form-check-label" for="Legends-Mythology">
+                    Legends/Mythology
+                  </label>
+                </div>  <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="{{ mystery }}" id="Mystery">
+                  <label class="form-check-label" for="Mystery">
+                    Mystery
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="{{ reference }}" id="Reference">
+                  <label class="form-check-label" for="Reference">
+                    Reference
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="{{ romance }}" id="Romance">
+                  <label class="form-check-label" for="Romance">
+                    Romance
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="{{ sciFi }}" id="Science-Fiction">
+                  <label class="form-check-label" for="Science-Fiction">
+                    Science Fiction
+                  </label>
+                </div>
+            </div>
+            <div class="container text-center" style="padding-top: 10px">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="{{ selfHelp }}" id="Self-Help">
+                  <label class="form-check-label" for="Self-Help">
+                    Self-Help
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="{{ shortStory }}" id="Short-Story">
+                  <label class="form-check-label" for="Short-Story">
+                    Short Story
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="{{ suspenseThriller }}" id="Suspense-Thriller">
+                  <label class="form-check-label" for="Suspense-Thriller">
+                    Suspense/Thriller
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="{{ textbook }}" id="Textbook">
+                  <label class="form-check-label" for="Textbook">
+                    Textbook
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" value="{{ poems }}" id="Poems">
+                  <label class="form-check-label" for="Poems">
+                    Poems
+                  </label>
+                </div>
+            </div>
+           <button type="submit" style="width: 20%; margin-left: 10px;">Filter</button>
         </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" value="" id="Legends-Mythology">
-          <label class="form-check-label" for="Legends-Mythology">
-            Legends/Mythology
-          </label>
-        </div>  <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" value="" id="Mystery">
-          <label class="form-check-label" for="Mystery">
-            Mystery
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" value="" id="Reference">
-          <label class="form-check-label" for="Reference">
-            Reference
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" value="" id="Romance">
-          <label class="form-check-label" for="Romance">
-            Romance
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" value="" id="Science-Fiction">
-          <label class="form-check-label" for="Science-Fiction">
-            Science Fiction
-          </label>
-        </div>
-    </div>
-    <div class="container text-center" style="padding-top: 10px">
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" value="" id="Self-Help">
-          <label class="form-check-label" for="Self-Help">
-            Self-Help
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" value="" id="Short-Story">
-          <label class="form-check-label" for="Short-Story">
-            Short Story
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" value="" id="Suspense-Thriller">
-          <label class="form-check-label" for="Suspense-Thriller">
-            Suspense/Thriller
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" value="" id="Textbook">
-          <label class="form-check-label" for="Textbook">
-            Textbook
-          </label>
-        </div>
-    </div>
-</div>
+    </fieldset>
+</form>
         </div>
         <table border="1" style="width: 100%;">
             <thead class="text-center">
@@ -207,8 +218,8 @@
                     <td> {{r[5]}} </td>
                     <td> {{r[6]}} </td>
                     <td>
-                        <input type="button" name="update_author" value="Update" onclick="window.location = '/members_add'">
-                        <input type="button" name="delete_author" value="Delete" method="GET" onclick="window.location = '/members_browse/{{r.0}}'">
+                        <input type="button" name="update_author" value="Update" onclick="window.location = '/books_add'">
+                        <input type="button" name="delete_author" value="Delete" method="GET" onclick="window.location = '/books_browse/{{r.0}}'">
                     </td>
                 </tr>
 		{% endfor %}
