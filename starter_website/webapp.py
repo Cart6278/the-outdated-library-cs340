@@ -12,22 +12,27 @@ def browse_members():
 
 	if request.method == 'POST':
 		option = request.form['type']
-	
+
 		if option == 'id_asc':
-			query += ' ORDER BY memberID ASC;'
+			query += ' order by memberid asc;'
 		elif option == 'id_desc':
-			query += ' ORDER BY memberID DESC;'
+			query += ' order by memberid desc;'
 		elif option == 'first_asc':
-			query += ' ORDER BY memberFirst ASC;'
+			query += ' order by memberfirst asc;'
 		elif option == 'first_desc':
-			query += ' ORDER BY memberFirst DESC;'
+			query += ' order by memberfirst desc;'
 		elif option == 'last_asc':
-			query += ' ORDER BY memberLast ASC;'
+			query += ' order by memberlast asc;'
 		elif option == 'first_asc':
 			query += ' ORDER BY memberLast DESC;'
-
 	elif request.method == 'GET':
-		query += ';'
+		option = request.args.get('search_content')
+	
+		if option is None or option == '':	
+			query += ';'
+		else:
+			query += ''' WHERE memberFirst LIKE %s ''' % ("\'%%" + option + "%%\'")
+			query += ''' OR memberLast LIKE %s;''' % ("\'%%" + option + "%%\'")
 
 	result = execute_query(db_connection, query).fetchall()
 	print(result)
@@ -90,7 +95,14 @@ def browse_reservations():
 			query += ' ORDER BY isReturned DESC;'
 	
 	elif request.method == 'GET':
-		query += ';'
+		option = request.args.get('search_content')
+	
+		if option is None or option == '':	
+			query += ';'
+		else:
+			query += ''' WHERE memberFirst LIKE %s ''' % ("\'%%" + option + "%%\'")
+			query += ''' OR memberLast LIKE %s;''' % ("\'%%" + option + "%%\'")
+
 
 	result = execute_query(db_connection, query).fetchall()
 	print(result)
@@ -125,7 +137,6 @@ def add_reservations():
 #
 
 @webapp.route('/reservations_browse/<int:id>')
-#the name of this function is just a cosmetic thing
 def delete_reservations(id):
         db_connection = connect_to_database()
         query = "DELETE FROM Reservations WHERE reservationID = %s"
@@ -172,7 +183,7 @@ def add_authors():
         first_name = request.form['first_name']
         last_name = request.form['last_name']
 
-        query = 'INSERT INTO Authors (first_name, last_name) VALUES (%s,%s);'
+        query = 'INSERT INTO Authors (authorFirst, authorLast) VALUES (%s,%s);'
         data = (first_name, last_name)
         execute_query(db_connection, query, data)
         return render_template('authors_add.html')
@@ -254,7 +265,7 @@ def add_books():
 
     elif request.method == 'POST':
         bookTitle = request.form['bookTitle']
-        # bookAuthor = request.form['bookAuthor']
+#       bookAuthor = request.form['bookAuthor']
         bookGenre = request.form['bookGenre']
         bookFiction = request.form['bookFiction']
         bookIsbn = request.form['bookIsbn']
@@ -266,5 +277,6 @@ def add_books():
 
 # Library landing page
 @webapp.route('/')
+@webapp.route('/index')
 def index():
     return render_template('index.html')
