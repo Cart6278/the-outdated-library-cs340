@@ -38,7 +38,7 @@ CREATE TABLE `Author_Book` (
 
 LOCK TABLES `Author_Book` WRITE;
 /*!40000 ALTER TABLE `Author_Book` DISABLE KEYS */;
-INSERT INTO `Author_Book` VALUES (6,'9780871404237'),(7,'9780689878558'),(11,'9871862301382');
+INSERT INTO `Author_Book` VALUES (12,'001284982154'),(13, '001284982154'),(6,'9780871404237'),(7,'9780689878558'),(11,'9871862301382');
 /*!40000 ALTER TABLE `Author_Book` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,7 +64,7 @@ CREATE TABLE `Authors` (
 
 LOCK TABLES `Authors` WRITE;
 /*!40000 ALTER TABLE `Authors` DISABLE KEYS */;
-INSERT INTO `Authors` VALUES (1,'JK','Rowling'),(3,'JRR','Tolkein'),(4,'Wesley','Chu'),(5,'Mary','Beard'),(6,'Sharon Kay','Penman'),(7,'Tamora','Pierce'),(8,'Philip','Pullman'),(9,'Marlon','James'),(11,'Brian','Jaques');
+INSERT INTO `Authors` VALUES (1,'JK','Rowling'),(3,'JRR','Tolkein'),(4,'Wesley','Chu'),(5,'Mary','Beard'),(6,'Sharon Kay','Penman'),(7,'Tamora','Pierce'),(8,'Philip','Pullman'),(9,'Marlon','James'),(11,'Brian','Jaques'),(12,'Sample','Author'),(13,'Sample','SecondAuthor');
 /*!40000 ALTER TABLE `Authors` ENABLE KEYS */;
 UNLOCK TABLES;
 
