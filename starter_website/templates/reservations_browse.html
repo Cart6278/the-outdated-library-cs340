@@ -26,41 +26,27 @@
             <div class="col-4">
                 <input type="button" name="go_add_reservation" value="Add Reservation" onclick="window.location = '/reservations_add'" style="width: 60%; height: 35px; margin-left: 10px; margin-bottom: 10px;"> 
             </div>
-            <div class="col-4">
-                <input class="form-control" type="text" placeholder="Search..." aria-label="Search" style="margin-bottom: 10px;">
-            </div>  
-<!--
-            <div class="dropdown col-4">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 55%;">
-                Sort/Filter By...
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Date Issued - Ascending</a>
-                <a class="dropdown-item" href="#">Date Issued - Descending</a>
-                <a class="dropdown-item" href="#">Date Due - Ascending</a>
-                <a class="dropdown-item" href="#">Date Due - Descending</a>
-                <a class="dropdown-item" href="#">Returned</a>
-                <a class="dropdown-item" href="#">Not Returned</a>
-                </div>
-            </div>
 
--->
+	    <form class="col-4" name="search" method="get" action="{{ url_for('browse_reservations') }}">
+                <input class="active" type="text" name="search_content" method="post" value="" placeholder="Search..." style="margin-bottom: 10px;">
+		<input type="submit" value="Search">
+	    </form>
 
-	<form class="col-4" name="filter_reservations" method="post" action="{{ url_for('browse_reservations') }}"> 
+	    <form class="col-4" name="filter_reservations" method="post" action="{{ url_for('browse_reservations') }}"> 
         	<select name="type">
 			<option value="first_asc">First Name (A-Z)</option>
 			<option value="first_desc">First Name (Z-A)</option>
 			<option value="last_asc">Last Name (A-Z)</option>
 			<option value="last_desc">Last Name (Z-A)</option>
-			<option value="issued_asc">Date Issued - Ascending</option>
-			<option value="issued_desc">Date Issued - Descending</option>
-			<option value="due_asc">Date Due - Ascending</option>
-			<option value="due_desc">Date Due - Descending</option>
-			<option value="returned">Not Returned - Returned</option>
-			<option value="not_returned">Returned - Not Returned</option>
+			<option value="issued_asc">Date Issued (Ascending)</option>
+			<option value="issued_desc">Date Issued (Descending)</option>
+			<option value="due_asc">Date Due (Ascending)</option>
+			<option value="due_desc">Date Due (Descending)</option>
+			<option value="returned">Not Returned (Returned)</option>
+			<option value="not_returned">Returned (Not Returned)</option>
 		</select>
 		<button type="submit" style="width: 20%; margin-left: 10px;">Sort</button>
-	</form>
+	     </form>
         </div>  
 
         <table border="1" style="width: 100%;">
