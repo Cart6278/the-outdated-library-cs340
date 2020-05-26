@@ -27,27 +27,9 @@
                 <input type="button" name="add_author" value="Add Book" onclick="window.location = 'books_add'" style="width: 60%; height: 35px; margin-left: 10px; margin-bottom: 10px;">
             </div>
             <div class="col-4">
-                <input class="form-control" type="text" placeholder="Search..." aria-label="Search" style="margin-bottom: 10px;">
+                <input class="form-control" type="text" placeholder="Search By Title..." aria-label="Search" style="margin-bottom: 10px;">
             </div>
 
-<!--
-            <div class="dropdown col-4">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left: 55%;">
-                Sort/Filter By...
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-               		<option value="{{url_for('browse_members', filter='id_ascending')}}">Member ID - Ascending</option>
-                	<option value="{{url_for('browse_members', filter='id_descending')}}">Member ID - Descending</option>
-
-		        <a class="dropdown-item" href="#">Member ID - Ascending</a>
-                	<a class="dropdown-item" href="#">Member ID - Descending</a>
-                	<a class="dropdown-item" href="#">First Name - (A-Z)</a>
-                	<a class="dropdown-item" href="#">First Name - (Z-A)</a>
-                	<a class="dropdown-item" href="#">Last Name - (A-Z)</a>
-                	<a class="dropdown-item" href="#">Last Name - (Z-A)</a>
-                </div>
-            </div>
--->
 	<form class="col-4" name="filter_books" method="post" action="{{ url_for('browse_books') }}">
         	<select name="type">
 			<option value="title_asc">Title - Ascending</option>

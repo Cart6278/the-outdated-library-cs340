@@ -169,14 +169,13 @@ def add_authors():
         return render_template('authors_add.html')
 
     elif request.method == 'POST':
-        print("Add new people!")
-        authorFirst = request.form['authorFirst']
-        authorLast = request.form['authorLast']
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
 
-        query = 'INSERT INTO Authors (authorFirst, authorLast) VALUES (%s,%s);'
-        data = (authorFirst, authorLast)
+        query = 'INSERT INTO Authors (first_name, last_name) VALUES (%s,%s);'
+        data = (first_name, last_name)
         execute_query(db_connection, query, data)
-        return ('Author added!')
+        return render_template('authors_add.html')
 
 @webapp.route('/books_browse', methods=['GET', 'POST'])
 #the name of this function is just a cosmetic thing
