@@ -193,6 +193,17 @@ def add_authors():
         execute_query(db_connection, query, data)
         return render_template('authors_add.html')
 
+@webapp.route('/authors_browse/<int:id>', methods=['GET', 'POST'])
+#the name of this function is just a cosmetic thing
+def delete_author(id):
+    db_connection = connect_to_database()
+    query = "DELETE FROM Authors WHERE authorID = %s"
+    data = (id,)
+
+    result = execute_query(db_connection, query, data)
+    return render_template('/authors_browse')
+
+
 @webapp.route('/books_browse', methods=['GET', 'POST'])
 #the name of this function is just a cosmetic thing
 def browse_books():
@@ -262,8 +273,8 @@ def browse_books():
             query += ' GROUP BY b.title ORDER BY b.title ASC;'
         else:
             query += ''' WHERE title LIKE %s ''' % ("\'%%" + option + "%%\'")
-            #query += ''' OR genre LIKE %s;''' % ("\'%%" + option + "%%\'")
-            #query += ''' OR isbn LIKE %s;''' % ("\'%%" + option + "%%\'")
+            query += ''' OR genre LIKE %s;''' % ("\'%%" + option + "%%\'")
+
     result = execute_query(db_connection, query).fetchall()
     print(result)
     return render_template('books_browse.html', rows=result)
@@ -282,10 +293,20 @@ def add_books():
         bookAuthorFirst = request.form['author_first']
         bookAuthorLast = request.form['author_last']
 
-        query = 'INSERT INTO Books (title, genre, isFiction, isbn) VALUES (%s,%s,%s,%s)' #'; INSERT INTO Author_Book (authorID) VALUES((SELECT authorID FROM Authors AS a WHERE a.authorFirst = %s and a.authorLast=%s))'
-        data = (bookTitle, bookGenre, bookFiction, bookIsbn) #, bookAuthorFirst, bookAuthorLast)
+        query = 'INSERT INTO Books (title, genre, isFiction, isbn) VALUES (%s,%s,%s,%s); SELECT authorID FROM Author WHERE a.authorFirst=%s AND a.authorLast=%s INSERT INTO Authors_Books;'
+        data = (bookTitle, bookGenre, bookFiction, bookIsbn, bookAuthorFirst, bookAuthorLast)
         execute_query(db_connection, query, data)
         return render_template('books_add.html')
+
+@webapp.route('/books_browse/<int:id>', methods=['GET', 'POST'])
+#the name of this function is just a cosmetic thing
+def delete_book(id):
+    db_connection = connect_to_database()
+    query = "DELETE FROM Books WHERE isbn = %s"
+    data = (id,)
+
+    result = execute_query(db_connection, query, data)
+    return render_template('/books_browse')
 
 
 # Library landing page
