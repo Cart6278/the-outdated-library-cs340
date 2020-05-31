@@ -61,6 +61,32 @@ def add_members():
 
         return render_template('members_add.html')
 
+@webapp.route('/members_update/<int:id>', methods=['POST','GET'])
+def update_members(id):
+	db_connection = connect_to_database()
+
+	if request.method == 'GET':
+		member_query = ''' SELECT memberID, memberFirst, memberLast, streetAddr, city, state, postalCode, phoneNum, IFNULL(email, '') as email FROM Members WHERE memberID = %s''' % (id)
+		member_result = execute_query(db_connection, member_query).fetchone()
+		return render_template('members_update.html', member = member_result)
+
+	elif request.method == 'POST':
+		memberID = request.form['memberID']
+		memberFirst = request.form['memberFirst']
+		memberLast = request.form['memberLast']
+		streetAddr = request.form['streetAddr']
+		city = request.form['city']
+		state = request.form['state']
+		postalCode = request.form['postalCode']
+		phoneNum = request.form['phoneNum']
+		email = request.form['email']
+
+		query = 'UPDATE Members SET memberFirst = %s, memberLast = %s, streetAddr = %s, city = %s, state = %s, postalCode = %s, phoneNum = %s, email = %s WHERE memberID = %s'
+		data = (memberFirst, memberLast, streetAddr, city, state, postalCode, phoneNum, email, memberID)
+		execute_query(db_connection, query, data)
+
+		return redirect('/members_browse')
+
 @webapp.route('/reservations_browse', methods=['POST', 'GET'])
 def browse_reservations():
 	db_connection = connect_to_database()
@@ -124,13 +150,46 @@ def add_reservations():
         isReturned = request.form['isReturned']
 
         query = ''' INSERT INTO Reservations (memberID, bookID, dateIssued, dateDue, isReturned) VALUES 
-			((SELECT memberID FROM Members WHERE memberFirst=%s AND memberLast=%s),
+			((SELECT memberID FROM Members WHERE memberFirst = %s AND memberLast = %s),
 		 	 (SELECT bi.bookID FROM Book_Items AS bi LEFT JOIN Books AS b ON bi.isbn=b.isbn WHERE b.isbn = %s),
 		 	 %s,%s,%s) '''
         data = (memberFirst, memberLast, isbn, dateIssued, dateDue, isReturned)
         execute_query(db_connection, query, data)
 
         return render_template('reservations_add.html')
+
+@webapp.route('/reservations_update/<int:id>', methods=['POST', 'GET'])
+def update_reservations(id):
+	db_connection = connect_to_database()
+
+	if request.method == 'GET':
+		reservation_query = ''' SELECT DISTINCT r.reservationID, m.memberFirst, m.memberLast, b.isbn, r.dateIssued, r.dateDue, (SELECT IF(isReturned, \'Yes\', \'No\')) FROM Reservations AS r 
+		LEFT JOIN Members AS m ON r.memberID=m.memberID 
+		LEFT JOIN Book_Items AS bi ON r.bookID=bi.bookID 
+		LEFT JOIN Books AS b ON bi.isbn=b.isbn
+		WHERE m.memberID = %s ''' % (id)
+
+		reservation_result = execute_query(db_connection, reservation_query).fetchone()
+		return render_template('reservations_update.html', reservation = reservation_result)
+
+	elif request.method == 'POST':
+		reservationID = request.form['reservationID']
+		memberFirst = request.form['memberFirst']
+		memberLast = request.form['memberLast']
+		isbn = request.form['isbn']
+		dateIssued = request.form['dateIssued']
+		dateDue = request.form['dateDue']
+		isReturned = request.form['isReturned']
+
+		query = ''' UPDATE Reservations SET 
+				memberID = (SELECT memberID FROM Members WHERE memberFirst = %s AND memberLast = %s), 
+				bookID = (SELECT bi.bookID FROM Book_Items AS bi LEFT JOIN Books AS b ON bi.isbn=b.isbn WHERE bi.isbn = %s LIMIT 1),
+				dateIssued = %s, dateDue = %s, isReturned = %s WHERE reservationID = %s ''' 
+
+		data = (memberFirst, memberLast, isbn, dateIssued, dateDue, isReturned, reservationID)
+		execute_query(db_connection, query, data)
+
+		return redirect('/reservations_browse')
 
 #
 # Need to fix page re-direction after delete
@@ -194,7 +253,6 @@ def add_authors():
         return render_template('authors_add.html')
 
 @webapp.route('/authors_browse/<int:id>', methods=['GET', 'POST'])
-#the name of this function is just a cosmetic thing
 def delete_author(id):
     db_connection = connect_to_database()
     query = "DELETE FROM Authors WHERE authorID = %s"
