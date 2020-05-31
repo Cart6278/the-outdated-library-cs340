@@ -87,6 +87,20 @@ def update_members(id):
 
 		return redirect('/members_browse')
 
+@webapp.route('/members_browse/<int:id>')
+def delete_members(id):
+	db_connection = connect_to_database()
+
+	# Delete reservations associated with member ID before deleting member 
+	query1 = "DELETE FROM Reservations WHERE memberID = %s;"
+	query2 = "DELETE FROM Members WHERE memberID = %s;"
+
+	data = (id,)
+	execute_query(db_connection, query1, data)
+	execute_query(db_connection, query2, data)
+
+	return redirect('/members_browse') 
+
 @webapp.route('/reservations_browse', methods=['POST', 'GET'])
 def browse_reservations():
 	db_connection = connect_to_database()
@@ -167,7 +181,7 @@ def update_reservations(id):
 		LEFT JOIN Members AS m ON r.memberID=m.memberID 
 		LEFT JOIN Book_Items AS bi ON r.bookID=bi.bookID 
 		LEFT JOIN Books AS b ON bi.isbn=b.isbn
-		WHERE m.memberID = %s ''' % (id)
+		WHERE reservationID = %s ''' % (id)
 
 		reservation_result = execute_query(db_connection, reservation_query).fetchone()
 		return render_template('reservations_update.html', reservation = reservation_result)
@@ -191,10 +205,6 @@ def update_reservations(id):
 
 		return redirect('/reservations_browse')
 
-#
-# Need to fix page re-direction after delete
-#
-
 @webapp.route('/reservations_browse/<int:id>')
 def delete_reservations(id):
         db_connection = connect_to_database()
@@ -202,7 +212,7 @@ def delete_reservations(id):
         data = (id,)
 
         result = execute_query(db_connection, query, data)
-        return browse_reservations()
+        return redirect('/reservations_browse') 
 
 @webapp.route('/authors_browse', methods=['POST', 'GET'])
 def browse_authors():
