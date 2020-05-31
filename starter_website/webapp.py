@@ -10,29 +10,31 @@ def browse_members():
 	db_connection = connect_to_database()
 	query = ''' SELECT memberID, memberFirst, memberLast, streetAddr, city, state, postalCode, phoneNum, IFNULL(email, '') as email FROM Members'''
 
-	if request.method == 'POST':
-		option = request.form['type']
-
-		if option == 'id_asc':
-			query += ' order by memberid asc;'
-		elif option == 'id_desc':
-			query += ' order by memberid desc;'
-		elif option == 'first_asc':
-			query += ' order by memberfirst asc;'
-		elif option == 'first_desc':
-			query += ' order by memberfirst desc;'
-		elif option == 'last_asc':
-			query += ' order by memberlast asc;'
-		elif option == 'first_asc':
-			query += ' ORDER BY memberLast DESC;'
-	elif request.method == 'GET':
+	if request.method == 'GET':
 		option = request.args.get('search_content')
 	
 		if option is None or option == '':	
 			query += ';'
 		else:
 			query += ''' WHERE memberFirst LIKE %s ''' % ("\'%%" + option + "%%\'")
-			query += ''' OR memberLast LIKE %s;''' % ("\'%%" + option + "%%\'")
+			query += ''' OR memberLast LIKE %s ''' % ("\'%%" + option + "%%\'")
+
+	elif request.method == 'POST':
+		option2 = request.form['type']
+
+		if option2 == 'id_asc':
+			query += ' ORDER BY memberID ASC'
+		elif option2 == 'id_desc':
+			query += ' ORDER BY memberID ASC'
+		elif option2 == 'first_asc':
+			query2 += ' ORDER BY  memberFirst ASC'
+		elif option2 == 'first_desc':
+			query2 += ' ORDER BY memberFirst DESC'
+		elif option2 == 'last_asc':
+			query2 += ' ORDER BY memberLast ASC'
+		elif option2 == 'first_asc':
+			query += ' ORDER BY memberLast DESC'
+		query += ';'
 
 	result = execute_query(db_connection, query).fetchall()
 	print(result)
@@ -150,27 +152,32 @@ def browse_reservations():
 
 @webapp.route('/reservations_add', methods=['POST', 'GET'])
 def add_reservations():
-    db_connection = connect_to_database()
+	db_connection = connect_to_database()
 
-    if request.method == 'GET':
-        return render_template('reservations_add.html')
+	if request.method == 'GET':
+		return render_template('reservations_add.html')
 
-    elif request.method == 'POST':
-        memberFirst = request.form['memberFirst']
-        memberLast = request.form['memberLast']
-        isbn = request.form['isbn']
-        dateIssued = request.form['dateIssued']
-        dateDue = request.form['dateDue']
-        isReturned = request.form['isReturned']
+	elif request.method == 'POST':
+		memberFirst = request.form['memberFirst']
+		memberLast = request.form['memberLast']
+		isbn = request.form['isbn']
+		dateIssued = request.form['dateIssued']
+		dateDue = request.form['dateDue']
+		isReturned = request.form['isReturned']
 
-        query = ''' INSERT INTO Reservations (memberID, bookID, dateIssued, dateDue, isReturned) VALUES 
-			((SELECT memberID FROM Members WHERE memberFirst = %s AND memberLast = %s),
-		 	 (SELECT bi.bookID FROM Book_Items AS bi LEFT JOIN Books AS b ON bi.isbn=b.isbn WHERE b.isbn = %s),
-		 	 %s,%s,%s) '''
-        data = (memberFirst, memberLast, isbn, dateIssued, dateDue, isReturned)
-        execute_query(db_connection, query, data)
+	# Error handle	
+	try:
+		query = ''' INSERT INTO Reservations (memberID, bookID, dateIssued, dateDue, isReturned) VALUES 
+				((SELECT memberID FROM Members WHERE memberFirst = %s AND memberLast = %s),
+				 (SELECT bi.bookID FROM Book_Items AS bi LEFT JOIN Books AS b ON bi.isbn=b.isbn WHERE b.isbn = %s),
+				 %s,%s,%s) '''
+		data = (memberFirst, memberLast, isbn, dateIssued, dateDue, isReturned)
+		execute_query(db_connection, query, data)
 
-        return render_template('reservations_add.html')
+	except:
+		print("Invalid reservation input")	
+
+	return render_template('reservations_add.html')
 
 @webapp.route('/reservations_update/<int:id>', methods=['POST', 'GET'])
 def update_reservations(id):
