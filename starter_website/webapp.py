@@ -421,10 +421,12 @@ def delete_book(id):
     db_connection = connect_to_database()
     query1 = "DELETE FROM Books WHERE isbn = %s"
     query2 = "DELETE FROM Author_Book WHERE isbn = %s"
+    query3 = "DELETE FROM Book_Item WHERE isbn = %s"
     data = (id,)
 
     execute_query(db_connection, query1, data)
     execute_query(db_connection, query2, data)
+    execute_query(db_connection, query3, data)
     return redirect('/books_browse')
 
 

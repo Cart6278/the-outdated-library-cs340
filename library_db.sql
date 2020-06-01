@@ -80,7 +80,7 @@ CREATE TABLE `Book_Items` (
   `isbn` varchar(13) NOT NULL,
   PRIMARY KEY (`bookID`),
   KEY `book_items_ibfk_1` (`isbn`),
-  CONSTRAINT `book_items_ibfk_1` FOREIGN KEY (`isbn`) REFERENCES `Books` (`isbn`)
+  CONSTRAINT `book_items_ibfk_1` FOREIGN KEY (`isbn`) REFERENCES `Books` (`isbn`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
