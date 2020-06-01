@@ -27,8 +27,8 @@ CREATE TABLE `Author_Book` (
   `isbn` varchar(13) NOT NULL,
   KEY `author_book_ibfk_1` (`authorID`),
   KEY `author_book_ibfk_2` (`isbn`),
-  CONSTRAINT `author_book_ibfk_1` FOREIGN KEY (`authorID`) REFERENCES `Authors` (`authorID`),
-  CONSTRAINT `author_book_ibfk_2` FOREIGN KEY (`isbn`) REFERENCES `Books` (`isbn`)
+  CONSTRAINT `author_book_ibfk_1` FOREIGN KEY (`authorID`) REFERENCES `Authors` (`authorID`) ON DELETE CASCADE,
+  CONSTRAINT `author_book_ibfk_2` FOREIGN KEY (`isbn`) REFERENCES `Books` (`isbn`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

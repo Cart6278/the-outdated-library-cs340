@@ -269,14 +269,37 @@ def add_authors():
         execute_query(db_connection, query, data)
         return render_template('authors_add.html')
 
-@webapp.route('/authors_browse/<int:id>', methods=['GET', 'POST'])
+@webapp.route('/authors_update/<int:id>', methods=['POST', 'GET'])
+def update_authors(id):
+    db_connection = connect_to_database()
+
+    if request.method == 'GET':
+        author_query = ''' SELECT authorID, authorFirst, authorLast FROM Authors WHERE authorID=%s ''' %(id)
+        authors_result = execute_query(db_connection, author_query).fetchone()
+        return render_template('authors_update.html', author = authors_result)
+
+    elif request.method == 'POST':
+        author_id = request.form['authorID']
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+
+        query = ''' UPDATE Authors SET authorFirst = %s, authorLast=%s WHERE authorID=%s'''
+        data = (first_name, last_name, author_id)
+        execute_query(db_connection, query, data)
+
+        return redirect('/authors_browse')
+
+@webapp.route('/authors_browse/<int:id>')
 def delete_author(id):
     db_connection = connect_to_database()
-    query = "DELETE FROM Authors WHERE authorID = %s"
+    query1 = "DELETE FROM Authors WHERE authorID = %s;"
+    query2 = "DELETE FROM Author_Book WHERE authorID=%s;"
     data = (id,)
 
-    result = execute_query(db_connection, query, data)
-    return render_template('/authors_browse')
+    execute_query(db_connection, query1, data)
+    execute_query(db_connection, query2, data)
+
+    return redirect('/authors_browse')
 
 
 @webapp.route('/books_browse', methods=['GET', 'POST'])
@@ -373,15 +396,36 @@ def add_books():
         execute_query(db_connection, query, data)
         return render_template('books_add.html')
 
-@webapp.route('/books_browse/<int:id>', methods=['GET', 'POST'])
+@webapp.route('/books_update/<int:id>', methods=['POST','GET'])
+def update_books(id):
+    db_connection = connect_to_database()
+
+    if request.method == 'GET':
+        book_query = ''' SELECT isbn, title, genre, isFiction, FROM Book WHERE isbn = %s''' % (id)
+        book_result = execute_query(db_connection, book_query).fetchone()
+        return render_template('books_update.html', books = book_result)
+    elif request.method == 'POST':
+        title=request.form['bTitle']
+        genre = request.form['bGenre']
+        isFiction= request.form['bFiction']
+        isbn = request.form['bIsbn']
+
+        query = 'UPDATE Books SET title = %s, genre = %s, isFiction = %s WHERE isbn = %s'
+        data = (title, genre, isFiction, isbn)
+        execute_query(db_connection, query, data)
+        return redirect('/books_browse')
+
+@webapp.route('/books_browse/<int:id>')
 #the name of this function is just a cosmetic thing
 def delete_book(id):
     db_connection = connect_to_database()
-    query = "DELETE FROM Books WHERE isbn = %s"
+    query1 = "DELETE FROM Books WHERE isbn = %s"
+    query2 = "DELETE FROM Author_Book WHERE isbn = %s"
     data = (id,)
 
-    result = execute_query(db_connection, query, data)
-    return render_template('/books_browse')
+    execute_query(db_connection, query1, data)
+    execute_query(db_connection, query2, data)
+    return redirect('/books_browse')
 
 
 # Library landing page

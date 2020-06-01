@@ -1,7 +1,7 @@
 import MySQLdb as mariadb
 from db_credentials import host, user, passwd, db
 
-def connect_to_database(host = host, user = user, passwd = passwd, db = db):
+def connect_to_database(host: object = host, user: object = user, passwd: object = passwd, db: object = db) -> object:
     '''
     connects to a database and returns a database objects
     '''
