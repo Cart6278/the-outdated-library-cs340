@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Add/Update Books</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dar bg-dark">
+        <a class="navbar-brand" href="/">Home</a>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="/reservations_browse">Reservations</a>
+                <a class="nav-item nav-link" href="/members_browse">Members</a>
+                <a class="nav-item nav-link" href="/authors_browse">Authors</a>
+                <a class="nav-item nav-link" href="/books_browse">Books</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="border border-dark rounded-0-lg" style="width: 20%; margin-left:40%; margin-top: 20px;">
+        <h3 class="text-center">
+            Book Information
+        </h3>
+        <div class="form-group col-md-4">
+            <form id="update_books" method="post" action="/books_update/{{book[3]}}">
+                <fieldset>
+		    <input type="hidden" name="bookID" value="{{book[3]}}">
+                    Title<input type="text" name="title" value="{{book[0]}}" required><br>
+                    Genre
+                    <select name="genre" value="{{book[1]}}"><br>
+                        <option value="Biography">Biography</option>
+                        <option value="Classics">Classics</option>
+                        <option value="Comics/Graphic Novel">Comics and Graphic Novel</option>
+                        <option value="Contemporary">Contemporary</option>
+                        <option value="Essay">Essay</option>
+                        <option value="Fable/FolkTale/Fairy Tale">Fable/FolkTale/Fairy Tale</option>
+                        <option value="Fantasy">Fantasy</option>
+                        <option value="Historical Fiction">Historical Fiction</option>
+                        <option value="Horror">Horror</option>
+                        <option value="Humor">Humor</option>
+                        <option value="Journalism">Journalism</option>
+                        <option value="Legend/Mythology">Legend/Mythology</option>
+                        <option value="Mystery">Mystery</option>
+                        <option value="Reference Book">Refrence</option>
+                        <option value="Romance">Romance</option>
+                        <option value="Science Fiction">Science Fiction</option>
+                        <option value="Self-Help">Self-Help</option>
+                        <option value="Short Story">Short Story</option>
+                        <option value="Suspense/Thriller">Suspense/Thriller</option>
+                        <option value="Textbook">Textbook</option>
+                        <option value="Poems">Poems</option>
+                   </select><br>
+                    Fiction<br>
+                    <select id="isFiction" class="form-control" name="isFiction" value="{{book[2]}}" required>
+                        <option value="1">Y</option>
+                        <option value="0">N</option>
+                    </select>
+                   <!-- ISBN<input type="text" name="isbn" value="{{book[3]}}" required><br><!-->
+                    <input type="submit" value="Submit" style="margin-top: 10px;">
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <input type="button" name="books_list" value="Return to Book List" onclick="window.location = '/books_browse'" style="margin-top: 10px; width: 20%; margin-left: 40%;">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
