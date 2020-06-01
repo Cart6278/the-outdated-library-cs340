@@ -26,12 +26,13 @@
             Book Information
         </h3>
         <div class="form-group col-md-4">
-            <form id="update_books" method="post" action="/books_update/{{book[3]}}">
+            <form id="update_books" method="post" action="/books_update/{{book[0]}}">
                 <fieldset>
-		    <input type="hidden" name="bookID" value="{{book[3]}}">
-                    Title<input type="text" name="title" value="{{book[0]}}" required><br>
+		    <input type="hidden" name="bookID" value="{{book[0]}}">
+                    ISBN<input type="text" name="isbn" value="{{book[0]}}" required><br>
+                    Title<input type="text" name="title" value="{{book[1]}}" required><br>
                     Genre
-                    <select name="genre" value="{{book[1]}}"><br>
+                    <select name="genre" value="{{book[2]}}"><br>
                         <option value="Biography">Biography</option>
                         <option value="Classics">Classics</option>
                         <option value="Comics/Graphic Novel">Comics and Graphic Novel</option>
@@ -55,11 +56,10 @@
                         <option value="Poems">Poems</option>
                    </select><br>
                     Fiction<br>
-                    <select id="isFiction" class="form-control" name="isFiction" value="{{book[2]}}" required>
+                    <select id="isFiction" class="form-control" name="isFiction" value="{{book[3]}}" required>
                         <option value="1">Y</option>
                         <option value="0">N</option>
                     </select>
-                   <!-- ISBN<input type="text" name="isbn" value="{{book[3]}}" required><br><!-->
                     <input type="submit" value="Submit" style="margin-top: 10px;">
                 </fieldset>
             </form>

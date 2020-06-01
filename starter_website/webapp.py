@@ -400,14 +400,15 @@ def update_books(id):
     db_connection = connect_to_database()
 
     if request.method == 'GET':
-        book_query = ''' SELECT title, genre, isFiction FROM Books WHERE isbn= %s ''' % id
+        book_query = ''' SELECT isbn, title, genre, isFiction FROM Books WHERE isbn= %s ''' % id
         book_result = execute_query(db_connection, book_query).fetchone()
         return render_template('books_update.html', book = book_result)
     elif request.method == 'POST':
+        isbn = request.form['isbn']
         title = request.form['title']
         genre = request.form['genre']
         isFiction = request.form['isFiction']
-        #isbn = request.form['isbn']
+
 
         query = '''UPDATE Books SET title = %s, genre = %s, isFiction = %s WHERE isbn = %s'''
         data = (title, genre, isFiction, isbn)
