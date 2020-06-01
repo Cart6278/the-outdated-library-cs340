@@ -390,9 +390,9 @@ def add_books():
         bookAuthorFirst = request.form['author_first']
         bookAuthorLast = request.form['author_last']
 
-        query = 'INSERT INTO Books (title, genre, isFiction, isbn) VALUES (%s,%s,%s,%s); SELECT authorID FROM Author WHERE a.authorFirst=%s AND a.authorLast=%s INSERT INTO Authors_Books;'
-        data = (bookTitle, bookGenre, bookFiction, bookIsbn, bookAuthorFirst, bookAuthorLast)
-        execute_query(db_connection, query, data)
+        query1 = 'INSERT INTO Books (isbn, title, genre, isFiction) VALUES(%s, %s, %s, %s); INSERT INTO Author_Books (authorID) VALUES (SELECT authorID from Authors WHERE authorFirst = %s AND authorLast = %s)'
+        data1 = (bookIsbn, bookTitle, bookGenre, bookFiction, bookAuthorFirst, bookAuthorLast)
+        execute_query(db_connection, query1, data1)
         return render_template('books_add.html')
 
 @webapp.route('/books_update/<int:id>', methods=['POST','GET'])
