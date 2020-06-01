@@ -274,19 +274,18 @@ def update_authors(id):
     db_connection = connect_to_database()
 
     if request.method == 'GET':
-        author_query = ''' SELECT authorID, authorFirst, authorLast FROM Authors WHERE authorID=%s ''' %(id)
+        author_query = ''' SELECT authorID, authorFirst, authorLast FROM Authors WHERE authorID=%s ''' % id
         authors_result = execute_query(db_connection, author_query).fetchone()
-        return render_template('authors_update.html', author = authors_result)
+        return render_template('authors_update.html', authors = authors_result)
 
     elif request.method == 'POST':
         author_id = request.form['authorID']
-        first_name = request.form['first_name']
-        last_name = request.form['last_name']
+        first_name = request.form['authorFirst']
+        last_name = request.form['authorLast']
 
         query = ''' UPDATE Authors SET authorFirst = %s, authorLast=%s WHERE authorID=%s'''
         data = (first_name, last_name, author_id)
         execute_query(db_connection, query, data)
-
         return redirect('/authors_browse')
 
 @webapp.route('/authors_browse/<int:id>')
@@ -401,13 +400,13 @@ def update_books(id):
     db_connection = connect_to_database()
 
     if request.method == 'GET':
-        book_query = ''' SELECT isbn, title, genre, isFiction, FROM Book WHERE isbn = %s''' % (id)
+        book_query = ''' SELECT DISTINCT title, genre, isFiction, FROM Books WHERE isbn=%s''' % (id)
         book_result = execute_query(db_connection, book_query).fetchone()
-        return render_template('books_update.html', books = book_result)
+        return render_template('books_update.html', book = book_result)
     elif request.method == 'POST':
-        title=request.form['bTitle']
+        title = request.form['bTitle']
         genre = request.form['bGenre']
-        isFiction= request.form['bFiction']
+        isFiction = request.form['bFiction']
         isbn = request.form['bIsbn']
 
         query = 'UPDATE Books SET title = %s, genre = %s, isFiction = %s WHERE isbn = %s'
