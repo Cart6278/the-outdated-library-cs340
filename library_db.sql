@@ -170,7 +170,7 @@ CREATE TABLE `Reservations` (
   KEY `reservations_ibfk_1` (`memberID`),
   KEY `reservations_ibfk_2` (`bookID`),
   CONSTRAINT `reservations_ibfk_1` FOREIGN KEY (`memberID`) REFERENCES `Members` (`memberID`),
-  CONSTRAINT `reservations_ibfk_2` FOREIGN KEY (`bookID`) REFERENCES `Book_Items` (`bookID`)
+  CONSTRAINT `reservations_ibfk_2` FOREIGN KEY (`bookID`) REFERENCES `Book_Items` (`bookID`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
