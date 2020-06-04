@@ -391,11 +391,11 @@ def add_books():
         bookAuthorLast = request.form['author_last']
 
         query1 = 'INSERT INTO Books (isbn, title, genre, isFiction) VALUES(%s, %s, %s, %s); '
-        query2 = 'INSERT INTO Author_Books (authorID) VALUES (SELECT authorID from Authors WHERE authorFirst = %s AND authorLast = %s), (SELECT isbn FROM Books WHERE isbn = %s)'
-        query3 = 'INSERT INTO Book_Items (isbn) VALUES (SELECT isbn FROM Books WHERE isbn = %s)'
-        data1 = (bookIsbn, bookTitle, bookGenre, bookFiction)
-        data2 = (bookAuthorFirst, bookAuthorLast, bookIsbn)
-        data3 = bookIsbn
+        query2 = 'INSERT INTO Author_Book (authorID, isbn) VALUES ((SELECT a.authorID FROM Authors AS a WHERE a.authorFirst = %s AND a.authorLast = %s), %s)'
+        query3 = 'INSERT INTO Book_Items (isbn) VALUES (%s)'
+        data1 = (bookIsbn, bookTitle, bookGenre, bookFiction,)
+        data2 = (bookAuthorFirst, bookAuthorLast, bookIsbn,)
+        data3 = (bookIsbn,)
         execute_query(db_connection, query1, data1)
         execute_query(db_connection, query2, data2)
         execute_query(db_connection, query3, data3)
