@@ -389,10 +389,18 @@ def add_books():
         bookIsbn = request.form['isbn']
         bookAuthorFirst = request.form['author_first']
         bookAuthorLast = request.form['author_last']
+        second_author = request.form['second_author']
+        bookAuthorFirst2 = request.form['author_first2']
+        bookAuthorLast2 = request.form['author_last2']
 
         query1 = 'INSERT INTO Books (isbn, title, genre, isFiction) VALUES(%s, %s, %s, %s); '
         query2 = 'INSERT INTO Author_Book (authorID, isbn) VALUES ((SELECT a.authorID FROM Authors AS a WHERE a.authorFirst = %s AND a.authorLast = %s), %s)'
         query3 = 'INSERT INTO Book_Items (isbn) VALUES (%s)'
+        if second_author == 1:
+            query4 = 'INSERT INTO Author_Book (authorID, isbn) VALUES ((SELECT a.authorID FROM Authors AS a WHERE a.authorFirst = %s AND a.authorLast = %s), %s)'
+            data4 = (bookAuthorFirst2, bookAuthorLast2, bookIsbn,)
+            execute_query(db_connection, query4, data4)
+
         data1 = (bookIsbn, bookTitle, bookGenre, bookFiction,)
         data2 = (bookAuthorFirst, bookAuthorLast, bookIsbn,)
         data3 = (bookIsbn,)
