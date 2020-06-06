@@ -71,8 +71,8 @@
             <div class="form-row">
                 <div class="form-group">
                       <label for="author_name">Author</label>
-                        <input type="text" class="form-control" name="author_first" id="author_first" >
-                        <input type="text" class="form-control" name="author_last" id="author_last" >
+                        <input type="text" class="form-control" name="author_first" id="author_first" required>
+                        <input type="text" class="form-control" name="author_last" id="author_last" required>
                 </div>
             </div>
             <div class="form-row">
@@ -81,8 +81,8 @@
                      <div class="form-group">
                         <label for="second_author">Is There a Second Author?</label>
                             <select id="second_author" class="form-control" name="second_author">
-                                <option value="1">Y</option>
                                 <option value="0">N</option>
+                                <option value="1">Y</option>
                             </select>
                             <input type="text" class="form-control" name="author_first2" id="author_first2">
                             <input type="text" class="form-control" name="author_last2" id="author_last2">

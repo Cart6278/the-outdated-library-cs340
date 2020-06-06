@@ -396,7 +396,7 @@ def add_books():
         query1 = 'INSERT INTO Books (isbn, title, genre, isFiction) VALUES(%s, %s, %s, %s); '
         query2 = 'INSERT INTO Author_Book (authorID, isbn) VALUES ((SELECT a.authorID FROM Authors AS a WHERE a.authorFirst = %s AND a.authorLast = %s), %s)'
         query3 = 'INSERT INTO Book_Items (isbn) VALUES (%s)'
-        if second_author == 1:
+        if second_author:
             query4 = 'INSERT INTO Author_Book (authorID, isbn) VALUES ((SELECT a.authorID FROM Authors AS a WHERE a.authorFirst = %s AND a.authorLast = %s), %s)'
             data4 = (bookAuthorFirst2, bookAuthorLast2, bookIsbn,)
             execute_query(db_connection, query4, data4)
