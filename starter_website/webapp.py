@@ -383,7 +383,9 @@ def browse_books():
             query += ' GROUP BY b.title ORDER BY b.title ASC;'
         else:
             query += ''' WHERE title LIKE %s ''' % ("\'%%" + option + "%%\'")
-            query += ''' OR genre LIKE %s;''' % ("\'%%" + option + "%%\'")
+            query += ''' OR genre LIKE %s ''' % ("\'%%" + option + "%%\'")
+            query += ' GROUP BY b.title ORDER BY b.title ASC;'
+
 
     result = execute_query(db_connection, query).fetchall()
     print(result)
@@ -409,10 +411,6 @@ def add_books():
         query1 = 'INSERT INTO Books (isbn, title, genre, isFiction) VALUES(%s, %s, %s, %s); '
         query2 = 'INSERT INTO Author_Book (authorID, isbn) VALUES ((SELECT a.authorID FROM Authors AS a WHERE a.authorFirst = %s AND a.authorLast = %s), %s)'
         query3 = 'INSERT INTO Book_Items (isbn) VALUES (%s)'
-        if second_author:
-            query4 = 'INSERT INTO Author_Book (authorID, isbn) VALUES ((SELECT a.authorID FROM Authors AS a WHERE a.authorFirst = %s AND a.authorLast = %s), %s)'
-            data4 = (bookAuthorFirst2, bookAuthorLast2, bookIsbn,)
-            execute_query(db_connection, query4, data4)
 
         data1 = (bookIsbn, bookTitle, bookGenre, bookFiction,)
         data2 = (bookAuthorFirst, bookAuthorLast, bookIsbn,)
@@ -420,6 +418,12 @@ def add_books():
         execute_query(db_connection, query1, data1)
         execute_query(db_connection, query2, data2)
         execute_query(db_connection, query3, data3)
+
+        if second_author:
+            query4 = 'INSERT INTO Author_Book (authorID, isbn) VALUES ((SELECT a.authorID FROM Authors AS a WHERE a.authorFirst = %s AND a.authorLast = %s), %s)'
+            data4 = (bookAuthorFirst2, bookAuthorLast2, bookIsbn,)
+            execute_query(db_connection, query4, data4)
+            
         return render_template('books_add.html')
 
 @webapp.route('/books_update/<int:id>', methods=['POST','GET'])

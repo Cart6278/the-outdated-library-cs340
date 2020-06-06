@@ -67,8 +67,6 @@
                 <th>Author</th>
                 <th>Genre</th>
                 <th>Fiction</th>
-                <th>Available</th>
-                <th>Total Copies</th>
                 <th></th>
             </thead>
             <tbody>
@@ -79,8 +77,6 @@
                     <td> {{r[2]}} </td>
                     <td> {{r[3]}} </td>
                     <td> {{r[4]}} </td>
-                    <td> {{r[5]}} </td>
-                    <td> {{r[6]}} </td>
                     <td>
                         <input type="button" name="update_book" value="Update" onclick="window.location = '/books_update/{{ r.0 }}'">
                         <input type="button" name="delete_book" value="Delete" onclick="window.location = '/books_browse/{{r.0}}'">
