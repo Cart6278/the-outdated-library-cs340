@@ -155,11 +155,16 @@ def add_reservations():
 	db_connection = connect_to_database()
 
 	if request.method == 'GET':
-		return render_template('reservations_add.html')
+		query = "SELECT memberID, memberFirst, memberLast FROM Members;"
+		result = execute_query(db_connection, query).fetchall()
+		return render_template('reservations_add.html', members = result)
 
 	elif request.method == 'POST':
-		memberFirst = request.form['memberFirst']
-		memberLast = request.form['memberLast']
+	#	memberName = request.form['memberName']
+	#	memberFirst = request.form['memberFirst']
+	#	memberLast = request.form['memberLast']
+	#	memberFirst, memberLast = memberName.split()
+		memberID = request.form['memberID']
 		isbn = request.form['isbn']
 		dateIssued = request.form['dateIssued']
 		dateDue = request.form['dateDue']
@@ -167,17 +172,25 @@ def add_reservations():
 
 	# Error handle	
 	try:
+#		query = ''' INSERT INTO Reservations (memberID, bookID, dateIssued, dateDue, isReturned) VALUES 
+#				((SELECT memberID FROM Members WHERE memberFirst = %s AND memberLast = %s),
+#				 (SELECT bi.bookID FROM Book_Items AS bi LEFT JOIN Books AS b ON bi.isbn=b.isbn WHERE b.isbn = %s),
+#				 %s,%s,%s) '''
+#		data = (memberFirst, memberLast, isbn, dateIssued, dateDue, isReturned)a
 		query = ''' INSERT INTO Reservations (memberID, bookID, dateIssued, dateDue, isReturned) VALUES 
-				((SELECT memberID FROM Members WHERE memberFirst = %s AND memberLast = %s),
+				(%s,
 				 (SELECT bi.bookID FROM Book_Items AS bi LEFT JOIN Books AS b ON bi.isbn=b.isbn WHERE b.isbn = %s),
 				 %s,%s,%s) '''
-		data = (memberFirst, memberLast, isbn, dateIssued, dateDue, isReturned)
+		data = (memberID, isbn, dateIssued, dateDue, isReturned)
+
 		execute_query(db_connection, query, data)
 
 	except:
 		print("Invalid reservation input")	
 
-	return render_template('reservations_add.html')
+	query = "SELECT memberID, memberFirst, memberLast FROM Members;"
+	result = execute_query(db_connection, query).fetchall()
+	return render_template('reservations_add.html', members = result)
 
 @webapp.route('/reservations_update/<int:id>', methods=['POST', 'GET'])
 def update_reservations(id):
