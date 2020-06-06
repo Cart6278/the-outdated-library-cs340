@@ -28,8 +28,11 @@
         <div class="form-group col-md-4">
             <form id="add_reservations" method="post" action="/reservations_add">
                 <fieldset>
-                    Member First<input type="text" name="memberFirst" required><br>
-                    Member Last<input type="test" name="memberLast" required><br>
+                    Member<select name="memberID" required>
+		    {% for m in members %}
+			<option value="{{ m[0] }}">{{ m[1] }} {{ m[2] }}</option>
+		    {% endfor %}
+		    </select><br>
                     ISBN<input type="text" name="isbn" required><br> 
                     Date Issued<input type="date" name="dateIssued" required><br>
                     Date Due<input type="date" name="dateDue" required><br>
