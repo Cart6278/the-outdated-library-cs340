@@ -261,7 +261,8 @@ def browse_authors():
             query += ';'
         else:
             query += ''' WHERE authorFirst LIKE %s ''' % ("\'%%" + option + "%%\'")
-            query += ''' OR authorLast LIKE %s;''' % ("\'%%" + option + "%%\'")
+            query += ''' OR authorLast LIKE %s''' % ("\'%%" + option + "%%\'")
+            query += ''' OR (SELECT DISTINCT CONCAT(authorFirst, ' ', authorLast)) LIKE %s; ''' % ("\'%%" + option + "%%\'")
 
     result = execute_query(db_connection, query).fetchall()
     print(result)
@@ -384,6 +385,9 @@ def browse_books():
         else:
             query += ''' WHERE title LIKE %s ''' % ("\'%%" + option + "%%\'")
             query += ''' OR genre LIKE %s ''' % ("\'%%" + option + "%%\'")
+            query += ''' OR authorFirst FROM Author LIKE %s ''' % ("\'%%" + option + "%%\'")
+            query += ''' OR authorLast FROM Author LIKE %s''' % ("\'%%" + option + "%%\'")
+            query += ''' OR (SELECT DISTINCT CONCAT(authorFirst, ' ', authorLast) FROM Author) LIKE %s ''' % ("\'%%" + option + "%%\'")
             query += ' GROUP BY b.title ORDER BY b.title ASC;'
 
 
