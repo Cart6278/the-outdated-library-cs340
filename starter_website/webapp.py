@@ -321,126 +321,89 @@ def delete_author(id):
 @webapp.route('/books_browse', methods=['GET', 'POST'])
 #the name of this function is just a cosmetic thing
 def browse_books():
-    print("Fetching and rendering books web page")
-    db_connection = connect_to_database()
-    # THIS CODE WORKS -- query = ''' SELECT b.isbn, b.title, GROUP_CONCAT(DISTINCT a.authorFirst, ' ', a.authorLast) AS authorName, b.genre, b.isFiction FROM Authors AS a
-	#	INNER JOIN Author_Book AS ab ON ab.authorID=a.authorID
-	#	INNER JOIN Books AS b ON ab.isbn=b.isbn
-	#	GROUP BY b.title ORDER BY a.authorFirst, a.authorLast; '''
+	print("Fetching and rendering books web page")
+	db_connection = connect_to_database()
 
-    query = ''' SELECT b.isbn, b.title, GROUP_CONCAT(DISTINCT a.authorFirst, ' ', a.authorLast) AS authorName, b.genre, b.isFiction FROM Authors AS a 
-		INNER JOIN Author_Book AS ab ON ab.authorID=a.authorID 
-		INNER JOIN Books AS b ON ab.isbn=b.isbn'''
+	query = ''' SELECT bi.isbn, b.title, GROUP_CONCAT(DISTINCT a.authorFirst, ' ', a.authorLast) AS authorName, b.genre, b.isFiction FROM Books AS b
+		INNER JOIN Book_Items AS bi ON b.isbn=bi.isbn
+		INNER JOIN Author_Book AS ab ON ab.ISBN=b.ISBN
+		INNER JOIN Authors AS a ON ab.authorID=a.authorID '''
 
-    # drop down menu for Book title sorting
-    if request.method == 'POST':
-        option = request.form['type']
-        if option == 'title_asc':
-            query += ' GROUP BY b.title ORDER BY b.title ASC;'
-        elif option == 'title_dec':
-            query += ' GROUP BY b.title ORDER BY b.title DESC;'
-        elif option == 'biography':
-            query += ' WHERE b.genre=\'Biography\' GROUP BY b.title ORDER BY b.title DESC;'
-        elif option == 'classics':
-            query += ' WHERE b.genre=\'Classics\' GROUP BY b.title ORDER BY b.title DESC;'
-        elif option == 'comics':
-            query += ' WHERE b.genre=\'Comics/Graphic Novel\' GROUP BY b.title ORDER BY b.title DESC;'
-        elif option == 'contemporary':
-            query += ' WHERE b.genre=\'Contemporary\' GROUP BY b.title ORDER BY b.title DESC;'
-        elif option == 'essay':
-            query += ' WHERE b.genre=\'Essay\' GROUP BY b.title ORDER BY b.title DESC;'
-        elif option == 'fffTale':
-            query += ' WHERE b.genre=\'Fable/FolkTale/Fairy Tale\' GROUP BY b.title ORDER BY b.title DESC;'
-        elif option == 'fantasy':
-            query += ' WHERE b.genre=\'Fantasy\' GROUP BY b.title ORDER BY b.title DESC;'
-        elif option == 'histFic':
-            query += ' WHERE b.genre=\'Historical Fiction\' GROUP BY b.title ORDER BY b.title DESC;'
-        elif option == 'horror':
-            query += ' WHERE b.genre=\'Horror\' GROUP BY b.title ORDER BY b.title DESC;'
-        elif option == 'humor':
-            query += ' WHERE b.genre=\'Humor\' GROUP BY b.title ORDER BY b.title DESC;'
-        elif option == 'journalism':
-            query += ' WHERE b.genre=\'Journalism\' GROUP BY b.title ORDER BY b.title DESC;'
-        elif option == 'legendMyth':
-            query += ' WHERE b.genre=\'Legend/Mythology\' GROUP BY b.title ORDER BY b.title DESC;'
-        elif option == 'mystery':
-            query += ' WHERE b.genre=\'Mystery\' GROUP BY b.title ORDER BY b.title DESC;'
-        elif option == 'reference':
-            query += ' WHERE b.genre=\'Reference Book\' GROUP BY b.title ORDER BY b.title DESC;'
-        elif option == 'romance':
-            query += ' WHERE b.genre=\'Romance\' GROUP BY b.title ORDER BY b.title DESC;'
-        elif option == 'sciFi':
-            query += ' WHERE b.genre=\'Science Fiction\' GROUP BY b.title ORDER BY b.title DESC;'
-        elif option == 'selfHelp':
-            query += ' WHERE b.genre=\'Self-Help\' GROUP BY b.title ORDER BY b.title DESC;'
-        elif option == 'short-story':
-            query += ' WHERE b.genre=\'Short Story\' GROUP BY b.title ORDER BY b.title DESC;'
-        elif option == 'suspenseThriller':
-            query += ' WHERE b.genre=\'Suspense/Thriller\' GROUP BY b.title ORDER BY b.title DESC;'
-        elif option == 'textbook':
-            query += ' WHERE b.genre=\'Textbook\' GROUP BY b.title ORDER BY b.title DESC;'
-        elif option == 'poems':
-            query += '  WHERE b.genre=\'Poems\' GROUP BY b.title ORDER BY b.title DESC;'
-    elif request.method == 'GET':
-        option = request.args.get('search_content')
-        if option is None or option == '':
-            query += ' GROUP BY b.title ORDER BY b.title ASC;'
-        else:
-            query += ''' WHERE title LIKE %s ''' % ("\'%%" + option + "%%\'")
-            query += ''' OR genre LIKE %s ''' % ("\'%%" + option + "%%\'")
-            query += ''' OR authorFirst FROM Author LIKE %s ''' % ("\'%%" + option + "%%\'")
-            query += ''' OR authorLast FROM Author LIKE %s''' % ("\'%%" + option + "%%\'")
-            query += ''' OR (SELECT DISTINCT CONCAT(authorFirst, ' ', authorLast) FROM Author) LIKE %s ''' % ("\'%%" + option + "%%\'")
-            query += ' GROUP BY b.title ORDER BY b.title ASC;'
+	# drop down menu for Book title sorting
+	if request.method == 'POST':
+		option = request.form['type']
 
+		if option == 'title_asc':
+			query += 'GROUP BY b.isbn ORDER BY b.title ASC;'
+		elif option == 'title_dec':
+			query += 'GROUP BY b.isbn ORDER BY b.title DESC;'
+		else:
+			query += 'WHERE b.genre=%s ' % ("\'" + option + "\'")
+			query += 'GROUP BY b.isbn ORDER BY b.title ASC;'
 
-    result = execute_query(db_connection, query).fetchall()
-    print(result)
-    return render_template('books_browse.html', rows=result)
+	elif request.method == 'GET':
+		option = request.args.get('search_content')
+
+		if option is None or option == '':
+		    query += 'GROUP BY b.isbn ORDER BY b.title ASC;'
+		else:
+		    query += ''' WHERE title LIKE %s ''' % ("\'%%" + option + "%%\'")
+		    query += ''' OR genre LIKE %s ''' % ("\'%%" + option + "%%\'")
+		    query += ''' OR authorFirst LIKE %s ''' % ("\'%%" + option + "%%\'")
+		    query += ''' OR authorLast LIKE %s ''' % ("\'%%" + option + "%%\'")
+		    query += ''' OR (SELECT DISTINCT CONCAT(authorFirst, ' ', authorLast)) LIKE %s ''' % ("\'%%" + option + "%%\'")
+		    query += 'GROUP BY b.isbn ORDER BY b.title ASC;'
+
+	result = execute_query(db_connection, query).fetchall()
+	print(result)
+	return render_template('books_browse.html', rows=result)
 
 @webapp.route('/books_add', methods=['POST','GET'])
 def add_books():
-    db_connection = connect_to_database()
-    if request.method == 'GET':
-        return render_template('books_add.html')
+	db_connection = connect_to_database()
+	if request.method == 'GET':
+		return render_template('books_add.html')
 
-    elif request.method == 'POST':
-        bookTitle = request.form['book_title']
-        bookGenre = request.form['book_genre']
-        bookFiction = request.form['isFiction']
-        bookIsbn = request.form['isbn']
-        bookAuthorFirst = request.form['author_first']
-        bookAuthorLast = request.form['author_last']
-        second_author = request.form['second_author']
-        bookAuthorFirst2 = request.form['author_first2']
-        bookAuthorLast2 = request.form['author_last2']
+	elif request.method == 'POST':
+		try:
+			bookTitle = request.form['book_title']
+			bookGenre = request.form['book_genre']
+			bookFiction = request.form['isFiction']
+			bookIsbn = request.form['isbn']
+			bookAuthorFirst = request.form['author_first']
+			bookAuthorLast = request.form['author_last']
+			second_author = request.form['second_author']
+			bookAuthorFirst2 = request.form['author_first2']
+			bookAuthorLast2 = request.form['author_last2']
 
-        query1 = 'INSERT INTO Books (isbn, title, genre, isFiction) VALUES(%s, %s, %s, %s); '
-        query2 = ''' INSERT INTO Authors (authorFirst, authorLast) SELECT * FROM (SELECT %s, %s) AS tmp
-                WHERE NOT EXISTS (SELECT authorFirst, authorLast FROM Authors WHERE authorFirst = %s AND authorLast = %s) LIMIT 1;'''
-        query3 = 'INSERT INTO Author_Book (authorID, isbn) VALUES ((SELECT a.authorID FROM Authors AS a WHERE a.authorFirst = %s AND a.authorLast = %s), %s)'
-        query4 = 'INSERT INTO Book_Items (isbn) VALUES (%s)'
+			query1 = 'INSERT INTO Books (isbn, title, genre, isFiction) VALUES(%s, %s, %s, %s); '
+			query2 = ''' INSERT INTO Authors (authorFirst, authorLast) SELECT * FROM (SELECT %s, %s) AS tmp
+				WHERE NOT EXISTS (SELECT authorFirst, authorLast FROM Authors WHERE authorFirst = %s AND authorLast = %s) LIMIT 1;'''
+			query3 = 'INSERT INTO Author_Book (authorID, isbn) VALUES ((SELECT a.authorID FROM Authors AS a WHERE a.authorFirst = %s AND a.authorLast = %s), %s)'
+			query4 = 'INSERT INTO Book_Items (isbn) VALUES (%s)'
 
-        data1 = (bookIsbn, bookTitle, bookGenre, bookFiction)
-        data2 = (bookAuthorFirst, bookAuthorLast, bookAuthorFirst, bookAuthorLast,)
-        data3 = (bookAuthorFirst, bookAuthorLast, bookIsbn,)
-        data4 = (bookIsbn,)
+			data1 = (bookIsbn, bookTitle, bookGenre, bookFiction)
+			data2 = (bookAuthorFirst, bookAuthorLast, bookAuthorFirst, bookAuthorLast,)
+			data3 = (bookAuthorFirst, bookAuthorLast, bookIsbn,)
+			data4 = (bookIsbn,)
 
-        execute_query(db_connection, query1, data1)
-        execute_query(db_connection, query2, data2)
-        execute_query(db_connection, query3, data3)
-        execute_query(db_connection, query4, data4)
+			execute_query(db_connection, query1, data1)
+			execute_query(db_connection, query2, data2)
+			execute_query(db_connection, query3, data3)
+			execute_query(db_connection, query4, data4)
 
-        if second_author:
-            query5 = ''' INSERT INTO Authors (authorFirst, authorLast) SELECT * FROM (SELECT %s, %s) AS tmp
-                WHERE NOT EXISTS (SELECT authorFirst, authorLast FROM Authors WHERE authorFirst = %s AND authorLast = %s) LIMIT 1;'''
-            query6 = 'INSERT INTO Author_Book (authorID, isbn) VALUES ((SELECT a.authorID FROM Authors AS a WHERE a.authorFirst = %s AND a.authorLast = %s), %s)'
-            data5 = (bookAuthorFirst2, bookAuthorLast2, bookAuthorFirst2, bookAuthorLast2)
-            data6 = (bookAuthorFirst2, bookAuthorLast2, bookIsbn,)
-            execute_query(db_connection, query5, data5)
-            execute_query(db_connection, query6, data6)
-            
-        return render_template('books_add.html')
+			if second_author == 1:
+			    query5 = ''' INSERT INTO Authors (authorFirst, authorLast) SELECT * FROM (SELECT %s, %s) AS tmp
+				WHERE NOT EXISTS (SELECT authorFirst, authorLast FROM Authors WHERE authorFirst = %s AND authorLast = %s) LIMIT 1;'''
+			    query6 = 'INSERT INTO Author_Book (authorID, isbn) VALUES ((SELECT a.authorID FROM Authors AS a WHERE a.authorFirst = %s AND a.authorLast = %s), %s)'
+			    data5 = (bookAuthorFirst2, bookAuthorLast2, bookAuthorFirst2, bookAuthorLast2)
+			    data6 = (bookAuthorFirst2, bookAuthorLast2, bookIsbn,)
+			    execute_query(db_connection, query5, data5)
+			    execute_query(db_connection, query6, data6)
+		except:
+			print("ISBN already exists in database.")
+	    
+	return render_template('books_add.html')
 
 @webapp.route('/books_update/<int:id>', methods=['POST','GET'])
 def update_books(id):
