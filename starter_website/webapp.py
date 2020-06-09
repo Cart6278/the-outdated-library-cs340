@@ -18,6 +18,7 @@ def browse_members():
 		else:
 			query += ''' WHERE memberFirst LIKE %s ''' % ("\'%%" + option + "%%\'")
 			query += ''' OR memberLast LIKE %s ''' % ("\'%%" + option + "%%\'")
+			query += ''' OR (SELECT DISTINCT CONCAT(memberFirst, ' ', memberLast)) LIKE %s; ''' % ("\'%%" + option + "%%\'")
 
 	elif request.method == 'POST':
 		option2 = request.form['type']
@@ -143,7 +144,8 @@ def browse_reservations():
 			query += ';'
 		else:
 			query += ''' WHERE memberFirst LIKE %s ''' % ("\'%%" + option + "%%\'")
-			query += ''' OR memberLast LIKE %s;''' % ("\'%%" + option + "%%\'")
+			query += ''' OR memberLast LIKE %s ''' % ("\'%%" + option + "%%\'")
+			query += ''' OR (SELECT DISTINCT CONCAT(memberFirst, ' ', memberLast)) LIKE %s; ''' % ("\'%%" + option + "%%\'")
 
 
 	result = execute_query(db_connection, query).fetchall()
@@ -261,7 +263,7 @@ def browse_authors():
             query += ';'
         else:
             query += ''' WHERE authorFirst LIKE %s ''' % ("\'%%" + option + "%%\'")
-            query += ''' OR authorLast LIKE %s''' % ("\'%%" + option + "%%\'")
+            query += ''' OR authorLast LIKE %s ''' % ("\'%%" + option + "%%\'")
             query += ''' OR (SELECT DISTINCT CONCAT(authorFirst, ' ', authorLast)) LIKE %s; ''' % ("\'%%" + option + "%%\'")
 
     result = execute_query(db_connection, query).fetchall()
