@@ -102,7 +102,7 @@ DROP TABLE IF EXISTS `Books`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Books` (
-  `isbn` varchar(13) NOT NULL,
+  `isbn` varchar(13) NOT NULL UNIQUE,
   `title` varchar(255) NOT NULL,
   `genre` char(30) NOT NULL,
   `isFiction` tinyint(1) NOT NULL,
