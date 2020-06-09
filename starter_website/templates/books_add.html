@@ -15,7 +15,7 @@
                 <a class="nav-item nav-link" href="/reservations_browse">Reservations</a>
                 <a class="nav-item nav-link" href="/members_browse">Members</a>
                 <a class="nav-item nav-link" href="/authors_browse">Authors</a>
-                <a class="nav-item nav-link" href="/books_add">Books</a>
+                <a class="nav-item nav-link" href="/books_browse">Books</a>
             </div>
         </div>
 </nav>
@@ -70,8 +70,9 @@
             </div>
             <div class="form-row">
                 <div class="form-group">
-                      <label for="author_name">Author</label>
+                      <label for="author_name">Author First Name</label>
                         <input type="text" class="form-control" name="author_first" id="author_first" required>
+			Author Last Name
                         <input type="text" class="form-control" name="author_last" id="author_last" required>
                 </div>
             </div>
@@ -84,7 +85,9 @@
                                 <option value="0">N</option>
                                 <option value="1">Y</option>
                             </select>
+			    Author First Name
                             <input type="text" class="form-control" name="author_first2" id="author_first2">
+			    Author Second Name
                             <input type="text" class="form-control" name="author_last2" id="author_last2">
                 </div>
             </div>
