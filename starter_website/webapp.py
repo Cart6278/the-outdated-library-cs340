@@ -280,8 +280,9 @@ def add_authors():
         first_name = request.form['first_name']
         last_name = request.form['last_name']
 
-        query = 'INSERT INTO Authors (authorFirst, authorLast) VALUES (%s,%s);'
-        data = (first_name, last_name)
+        query = ''' INSERT INTO Authors (authorFirst, authorLast) SELECT * FROM (SELECT %s, %s) AS tmp
+                WHERE NOT EXISTS (SELECT authorFirst, authorLast FROM Authors WHERE authorFirst = %s AND authorLast = %s) LIMIT 1;'''
+        data = (first_name, last_name, first_name, last_name)
         execute_query(db_connection, query, data)
         return render_template('authors_add.html')
 
@@ -415,20 +416,29 @@ def add_books():
         bookAuthorLast2 = request.form['author_last2']
 
         query1 = 'INSERT INTO Books (isbn, title, genre, isFiction) VALUES(%s, %s, %s, %s); '
-        query2 = 'INSERT INTO Author_Book (authorID, isbn) VALUES ((SELECT a.authorID FROM Authors AS a WHERE a.authorFirst = %s AND a.authorLast = %s), %s)'
-        query3 = 'INSERT INTO Book_Items (isbn) VALUES (%s)'
+        query2 = ''' INSERT INTO Authors (authorFirst, authorLast) SELECT * FROM (SELECT %s, %s) AS tmp
+                WHERE NOT EXISTS (SELECT authorFirst, authorLast FROM Authors WHERE authorFirst = %s AND authorLast = %s) LIMIT 1;'''
+        query3 = 'INSERT INTO Author_Book (authorID, isbn) VALUES ((SELECT a.authorID FROM Authors AS a WHERE a.authorFirst = %s AND a.authorLast = %s), %s)'
+        query4 = 'INSERT INTO Book_Items (isbn) VALUES (%s)'
 
-        data1 = (bookIsbn, bookTitle, bookGenre, bookFiction,)
-        data2 = (bookAuthorFirst, bookAuthorLast, bookIsbn,)
-        data3 = (bookIsbn,)
+        data1 = (bookIsbn, bookTitle, bookGenre, bookFiction)
+        data2 = (bookAuthorFirst, bookAuthorLast, bookAuthorFirst, bookAuthorLast,)
+        data3 = (bookAuthorFirst, bookAuthorLast, bookIsbn,)
+        data4 = (bookIsbn,)
+
         execute_query(db_connection, query1, data1)
         execute_query(db_connection, query2, data2)
         execute_query(db_connection, query3, data3)
+        execute_query(db_connection, query4, data4)
 
         if second_author:
-            query4 = 'INSERT INTO Author_Book (authorID, isbn) VALUES ((SELECT a.authorID FROM Authors AS a WHERE a.authorFirst = %s AND a.authorLast = %s), %s)'
-            data4 = (bookAuthorFirst2, bookAuthorLast2, bookIsbn,)
-            execute_query(db_connection, query4, data4)
+            query5 = ''' INSERT INTO Authors (authorFirst, authorLast) SELECT * FROM (SELECT %s, %s) AS tmp
+                WHERE NOT EXISTS (SELECT authorFirst, authorLast FROM Authors WHERE authorFirst = %s AND authorLast = %s) LIMIT 1;'''
+            query6 = 'INSERT INTO Author_Book (authorID, isbn) VALUES ((SELECT a.authorID FROM Authors AS a WHERE a.authorFirst = %s AND a.authorLast = %s), %s)'
+            data5 = (bookAuthorFirst2, bookAuthorLast2, bookAuthorFirst2, bookAuthorLast2)
+            data6 = (bookAuthorFirst2, bookAuthorLast2, bookIsbn,)
+            execute_query(db_connection, query5, data5)
+            execute_query(db_connection, query6, data6)
             
         return render_template('books_add.html')
 
