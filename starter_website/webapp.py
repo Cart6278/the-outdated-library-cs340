@@ -26,7 +26,7 @@ def browse_members():
 		if option2 == 'id_asc':
 			query += ' ORDER BY memberID ASC'
 		elif option2 == 'id_desc':
-			query += ' ORDER BY memberID ASC'
+			query += ' ORDER BY memberID DESC'
 		elif option2 == 'first_asc':
 			query2 += ' ORDER BY  memberFirst ASC'
 		elif option2 == 'first_desc':
@@ -162,10 +162,6 @@ def add_reservations():
 		return render_template('reservations_add.html', members = result)
 
 	elif request.method == 'POST':
-	#	memberName = request.form['memberName']
-	#	memberFirst = request.form['memberFirst']
-	#	memberLast = request.form['memberLast']
-	#	memberFirst, memberLast = memberName.split()
 		memberID = request.form['memberID']
 		isbn = request.form['isbn']
 		dateIssued = request.form['dateIssued']
@@ -174,11 +170,6 @@ def add_reservations():
 
 	# Error handle	
 	try:
-#		query = ''' INSERT INTO Reservations (memberID, bookID, dateIssued, dateDue, isReturned) VALUES 
-#				((SELECT memberID FROM Members WHERE memberFirst = %s AND memberLast = %s),
-#				 (SELECT bi.bookID FROM Book_Items AS bi LEFT JOIN Books AS b ON bi.isbn=b.isbn WHERE b.isbn = %s),
-#				 %s,%s,%s) '''
-#		data = (memberFirst, memberLast, isbn, dateIssued, dateDue, isReturned)a
 		query = ''' INSERT INTO Reservations (memberID, bookID, dateIssued, dateDue, isReturned) VALUES 
 				(%s,
 				 (SELECT bi.bookID FROM Book_Items AS bi LEFT JOIN Books AS b ON bi.isbn=b.isbn WHERE b.isbn = %s),
@@ -319,12 +310,11 @@ def delete_author(id):
 
 
 @webapp.route('/books_browse', methods=['GET', 'POST'])
-#the name of this function is just a cosmetic thing
 def browse_books():
 	print("Fetching and rendering books web page")
 	db_connection = connect_to_database()
 
-	query = ''' SELECT bi.isbn, b.title, GROUP_CONCAT(DISTINCT a.authorFirst, ' ', a.authorLast) AS authorName, b.genre, b.isFiction FROM Books AS b
+	query = ''' SELECT bi.isbn, b.title, GROUP_CONCAT(DISTINCT a.authorFirst, ' ', a.authorLast) AS authorName, b.genre, (SELECT IF(isFiction, \'Yes\', \'No\'))FROM Books AS b
 		INNER JOIN Book_Items AS bi ON b.isbn=bi.isbn
 		INNER JOIN Author_Book AS ab ON ab.ISBN=b.ISBN
 		INNER JOIN Authors AS a ON ab.authorID=a.authorID '''
@@ -426,16 +416,15 @@ def update_books(id):
         return redirect('/books_browse')
 
 @webapp.route('/books_browse/<int:id>')
-#the name of this function is just a cosmetic thing
 def delete_book(id):
     db_connection = connect_to_database()
     query1 = "DELETE FROM Books WHERE isbn = %s"
     query2 = "DELETE FROM Author_Book WHERE isbn = %s"
-    query3 = "DELETE FROM Book_Item WHERE isbn = %s"
+    query3 = "DELETE FROM Book_Items WHERE isbn = %s"
     data = (id,)
 
-    #execute_query(db_connection, query2, data)
-   # execute_query(db_connection, query3, data)
+    execute_query(db_connection, query2, data)
+    execute_query(db_connection, query3, data)
     execute_query(db_connection, query1, data)
     return redirect('/books_browse')
 
